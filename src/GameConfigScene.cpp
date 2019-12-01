@@ -2,7 +2,6 @@
 
 void            GameConfigScene::initScene()
 {
-	int a = 1;
         createSprite("background1", "./ressources/menu/bg1.png");
 	createSprite("button", "./ressources/menu/button.png");
 	createSprite("changeArrows", "./ressources/menu/changeArrows.png");
@@ -24,12 +23,15 @@ void            GameConfigScene::initScene()
 	// _P2 = _menuConfig->getPlayers().at(_SECOND)->getSpritePlain();
 	// _P2.setPosition(sf::Vector2f(860, 350));
 	_MenuElements.push_back(std::make_pair(_SHIPS2, getSprite("changeArrows")));
-	_MenuElements[1].second.setPosition(sf::Vector2f(770, 360));
-	a += 1;
+	_MenuElements[1].second.setPosition(sf::Vector2f(770, 185));
+	_MenuElements.push_back(std::make_pair(_SHIPS2, getSprite("changeArrows")));
+	_MenuElements[2].second.setPosition(sf::Vector2f(770, 320));
+	_MenuElements.push_back(std::make_pair(_SHIPS2, getSprite("changeArrows")));
+	_MenuElements[3].second.setPosition(sf::Vector2f(770, 440));
 	_MenuElements.push_back(std::make_pair(_PLAY, getSprite("button")));
 	_MenuElements.push_back(std::make_pair(_BACK, getSprite("button")));
-	_MenuElements[2].second.setPosition(sf::Vector2f(825, 572));
-	_MenuElements[3].second.setPosition(sf::Vector2f(825, 652));
+	_MenuElements[4].second.setPosition(sf::Vector2f(825, 572));
+	_MenuElements[5].second.setPosition(sf::Vector2f(825, 652));
 	_elementsNB = _MenuElements.size();
 	_selector.setPosition(_MenuElements[_selector_pos].second.getPosition());
 	_selector.move(sf::Vector2f(-55, 5));
