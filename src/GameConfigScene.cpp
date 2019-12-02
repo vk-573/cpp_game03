@@ -6,6 +6,9 @@ void            GameConfigScene::initScene()
 	createSprite("button", "./ressources/menu/button.png");
 	createSprite("changeArrows", "./ressources/menu/changeArrows.png");
 	createSprite("selector", "./ressources/menu/arrow.png");
+	setPlayers(_menuConfig->getPlayers());
+	setWeapons(_menuConfig->getWeapons());
+	setMaps(_menuConfig->getMaps());
 	_selector = getSprite("selector");
 	_selector_pos = 0;
 	// _maxShips = _menuConfig->getPlayers().size();
@@ -214,4 +217,15 @@ void		GameConfigScene::changeShip2(_KEYS key)
 	// 	_P2 = _menuConfig->getPlayers().at((_PLAYERS)_P2_pos)->getSpritePlain();
 	// 	_P2.setPosition(sf::Vector2f(560, 350));
 	// }
+}
+
+void		GameConfigScene::setPlayers(_PLAYERS players) {
+	_Players = players;
+}
+void		GameConfigScene::setWeapons(_WEAPONS weapons) {
+	_Weapons = weapons;
+
+}
+void		GameConfigScene::setMaps(_MAPS maps) {
+	_Maps = maps;
 }

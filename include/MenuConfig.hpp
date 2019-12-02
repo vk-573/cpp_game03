@@ -1,7 +1,10 @@
 #ifndef MENUMANAGER_HPP_
 	#define MENUMANAGER_HPP_
 
-// #include "Player.hpp"
+#include "IPlayer.hpp"
+#include "IMap.hpp"
+#include "IWeapon.hpp"
+#include "PluginManager.hpp"
 
 enum	_PLAYERS_NUM
 {
@@ -9,25 +12,29 @@ enum	_PLAYERS_NUM
 	_P_N2,
 };
 
-// typedef std::vector<std::pair<_PLAYERS, IUnit*>>	CHOOSEN_PLAYERS;
 
 class MenuConfig {
 	public:
 		MenuConfig();
-		~MenuConfig() = default;
+		~MenuConfig();
 
-		// void		setPlayers(PLAYERS players);
-		// PLAYERS		&getPlayers();
-		// CHOOSEN_PLAYERS	getChoosenPlayers();
-		// PLAYER_KEYS	getFirstPlayerKeys();
-		// PLAYER_KEYS	getSecondPlayerKeys();
-		// int	nb_players;
-		// _PLAYERS	_P1;
-		// _PLAYERS	_P2;
+		void		setPlayers(_PLAYERS players);
+		_PLAYERS	getPlayers();
+		void		setMaps(_MAPS maps);
+		_MAPS		getMaps();
+		void		setWeapons(_WEAPONS weapons);
+		_WEAPONS	getWeapons();
+		PluginManager	*getPluginManager();
 	private:	
-		// PLAYERS		_Players;
-		// PLAYER_KEYS	_P1_keys;
-		// PLAYER_KEYS	_P2_keys;
+		PluginManager	*_pluginManager;
+		_PLAYERS	_Players;
+		_WEAPONS	_Weapons;
+		_MAPS		_Maps;
+		IPlayer		*_p1;
+		IWeapon		*_w1;
+		IPlayer		*_p2;
+		IWeapon		*_w2;
+		IMap		*_choosenMap;
 };
 
 

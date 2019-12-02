@@ -11,6 +11,9 @@ class GameConfigScene : public MainMenu {
 		_MENU_SCENE	startScene() override;
 		_MENU_SCENE	getSceneID() override;
 	private:
+		void		setPlayers(_PLAYERS players);
+		void		setWeapons(_WEAPONS weapons);
+		void		setMaps(_MAPS maps);
 		void		drawAll();
 		void		checkEvents();
 		void		action();
@@ -21,11 +24,17 @@ class GameConfigScene : public MainMenu {
 		bool		oneplayer = true;
 		bool		online = false;
 		MenuConfig	*_menuConfig;
-		sf::Sprite	_P1;
-		sf::Sprite	_P2;
+		std::string	currentP1;
+		std::string	currentP1W;
+		std::string	currentP2;
+		std::string	currentP2W;
+		std::string	currentMap;
 		int		_maxShips = 0;
 		int		_P1_pos = 0;
 		int		_P2_pos = 1;
+		_PLAYERS	_Players;
+		_WEAPONS	_Weapons;
+		_MAPS		_Maps;
 
 };
 

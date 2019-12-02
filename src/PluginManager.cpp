@@ -1,0 +1,184 @@
+#include "PluginManager.hpp"
+
+PluginManager::~PluginManager()
+{
+	closePlayersLibs();
+        // closeWeaponsLibs();
+        // closeMapsLibs();
+}
+
+void            PluginManager::loadPLugings() {
+        _playersPath = "./libs/players";
+        _weaponsPath = "./libs/weapons";
+        _mapsPath = "./libs/maps";
+        loadPlayers();
+        // loadWeapons();
+        // loadMaps();
+        // openPlayersLibs();
+}
+
+// PRIVATE
+void            PluginManager::loadPlayers() {
+        getPaths(_playersPath, _player_type);
+        for (auto lol : _playersLibs) {
+                std::cout << lol << std::endl;
+        }
+        openPlayersLibs();
+}
+
+void            PluginManager::loadWeapons() {
+        getPaths(_weaponsPath, _weapon_type);
+}
+
+void            PluginManager::loadMaps() {
+        getPaths(_mapsPath, _map_type);
+}
+
+_PLAYERS        PluginManager::getPlayers() {
+        return _Players;
+}
+_WEAPONS        PluginManager::getWeapons() {
+        return _Weapons;
+}
+_MAPS        PluginManager::getMaps() {
+        return _Maps;
+}
+
+IPlayer         *PluginManager::getPlayerInstance(const std::string &name) {
+        IPlayer *tmp;
+        IPlayer	*(* create)() = (IPlayer *(*)())dlsym(_playersHandleLibs.at(name), "getInstance");
+        tmp = create();
+        return tmp;
+}
+
+IWeapon         *PluginManager::getWeaponInstance(const std::string &name) {
+        IWeapon *tmp;
+        IWeapon	*(* create)() = (IWeapon *(*)())dlsym(_weaponsHandleLibs.at(name), "getInstance");
+        tmp = create();
+        return tmp;
+}
+
+IMap            *PluginManager::getMapInstance(const std::string &name) {
+        IMap *tmp;
+        IMap	*(* create)() = (IMap *(*)())dlsym(_mapsHandleLibs.at(name), "getInstance");
+        tmp = create();
+        return tmp;
+}
+
+// //PRIVATE
+void		PluginManager::getPaths(const std::string &pluginPath, const pluginType &type)
+{
+	std::string	tmp;
+
+	DIR* dirFile = opendir(pluginPath.c_str());
+	if ( dirFile ) {
+		struct dirent* hFile;
+		errno = 0;
+		while (( hFile = readdir( dirFile )) != NULL ) {
+			tmp = hFile->d_name;
+			if (tmp.find(".so") != std::string::npos) {
+                                if (type == _player_type) {
+				        _playersLibs.push_back(pluginPath + "/" + tmp);
+                                }
+                                else  if (type == _weapon_type) {
+				        _weaponsLibs.push_back(pluginPath + "/" + tmp);
+                                }
+                                else if (type == _map_type) {
+				        _mapsLibs.push_back(pluginPath + "/" + tmp);
+                                }
+                        }
+		}
+		closedir( dirFile );
+	}
+}
+
+void		PluginManager::openPlayersLibs()
+{
+        for (auto path : _playersLibs) {
+
+                void *handleLib = dlopen(path.c_str(), RTLD_LAZY);
+                if (!handleLib)
+                {
+                        std::cerr << "Cannot load the " << path << " :"<< dlerror() << std::endl;
+                        exit (84);
+                }
+                IPlayer *tmp;
+        	IPlayer	*(* create)() = (IPlayer *(*)())dlsym(handleLib, "getInstance");
+        	tmp = create();
+                _playersHandleLibs.emplace(tmp->getName(), handleLib);
+                _Players.emplace(tmp->getName(), tmp);
+        }
+}
+
+void		PluginManager::openWeaponsLibs()
+{
+        for (auto path : _weaponsLibs) {
+
+                void *handleLib = dlopen(path.c_str(), RTLD_LAZY);
+                if (!handleLib)
+                {
+                        std::cerr << "Cannot load the " << path << " :"<< dlerror() << std::endl;
+                        exit (84);
+                }
+                IWeapon *tmp;
+        	IWeapon	*(* create)() = (IWeapon *(*)())dlsym(handleLib, "getInstance");
+        	tmp = create();
+                _weaponsHandleLibs.emplace(tmp->getName(), handleLib);
+                _Weapons.emplace(tmp->getName(), tmp);
+        }
+}
+
+void		PluginManager::openMapsLibs()
+{
+        for (auto path : _mapsLibs) {
+
+                void *handleLib = dlopen(path.c_str(), RTLD_LAZY);
+                if (!handleLib)
+                {
+                        std::cerr << "Cannot load the " << path << " :"<< dlerror() << std::endl;
+                        exit (84);
+                }
+                IMap    *tmp;
+        	IMap    *(* create)() = (IMap *(*)())dlsym(handleLib, "getInstance");
+        	tmp = create();
+                _mapsHandleLibs.emplace(tmp->getName(), handleLib);
+                _Maps.emplace(tmp->getName(), tmp);
+        }
+}
+
+
+void		PluginManager::closePlayersLibs()
+{
+	for (auto &handle : _playersHandleLibs)
+	{
+		dlclose(handle.second);
+	}
+        for (auto &player : _Players)
+	{
+		delete(player.second);
+	}
+}
+
+void		PluginManager::closeWeaponsLibs()
+{
+	for (auto &handle : _weaponsHandleLibs)
+	{
+		dlclose(handle.second);
+	}
+        for (auto &weapon : _Weapons)
+	{
+		delete(weapon.second);
+	}
+}
+
+void		PluginManager::closeMapsLibs()
+{
+	for (auto &handle : _mapsHandleLibs)
+	{
+		dlclose(handle.second);
+	}
+        for (auto &map : _Maps)
+	{
+		delete(map.second);
+	}
+}

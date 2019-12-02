@@ -9,7 +9,7 @@
 class Manager : public Scene {
 	public:
 		Manager(IDisplay *window);
-		~Manager() =  default;
+		~Manager();
 
 		void		initManager();
 		void		startManager();
@@ -17,11 +17,6 @@ class Manager : public Scene {
 	protected:
 	private:
 		void		initScenes();
-		void		initPlayers();
-		void		initWeapons();
-		void		initMaps();
-		void		deletePlayer();
-		// PLAYERS		&getPlayers();
 		bool		isRunning();
 		void		quit();
 		void		setCurrentScene(_MENU_SCENE);

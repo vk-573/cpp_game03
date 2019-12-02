@@ -1,14 +1,13 @@
-/*
-** EPITECH PROJECT, 2018
-** VK
-** File description:
-** MenuConfgi class implementation
-*/
-
 #include "MenuConfig.hpp"
 
 MenuConfig::MenuConfig()
 {
+	_pluginManager = new PluginManager();
+	_pluginManager->loadPLugings();
+	setPlayers(_pluginManager->getPlayers());
+	setWeapons(_pluginManager->getWeapons());
+	setMaps(_pluginManager->getMaps());
+
 	// _P1_keys.emplace(_KEY_UP, sf::Keyboard::Up);
 	// _P1_keys.emplace(_KEY_DOWN, sf::Keyboard::Down);
 	// _P1_keys.emplace(_KEY_RIGHT, sf::Keyboard::Right);
@@ -22,30 +21,30 @@ MenuConfig::MenuConfig()
 	// _P2_keys.emplace(_KEY_SPACE, sf::Keyboard::LShift);
 }
 
-// void            MenuConfig::setPlayers(PLAYERS players)
-// {
-//         _Players = players;
-// }
+MenuConfig::~MenuConfig() {
+	delete _pluginManager;
+}
 
-// PLAYERS		&MenuConfig::getPlayers()
-// {
-// 	return (_Players);
-// }
+void		MenuConfig::setPlayers(_PLAYERS players) {
+	_Players = players;
+}
+_PLAYERS	MenuConfig::getPlayers() {
+	return _Players;
+}
+void		MenuConfig::setMaps(_MAPS maps) {
+	_Maps = maps;
+}
+_MAPS		MenuConfig::getMaps() {
+	return _Maps;
+}
+void		MenuConfig::setWeapons(_WEAPONS weapons) {
+	_Weapons = weapons;
+}
 
-// CHOOSEN_PLAYERS	MenuConfig::getChoosenPlayers()
-// {
-// 	CHOOSEN_PLAYERS players;
-// 	players.push_back(std::make_pair(_P1, _Players.at(_P1)));
-// 	players.push_back(std::make_pair(_P2, _Players.at(_P2)));
-//         return (players);
-// }
+_WEAPONS	MenuConfig::getWeapons() {
+	return _Weapons;
+}
 
-// PLAYER_KEYS	MenuConfig::getFirstPlayerKeys()
-// {
-// 	return (_P1_keys);
-// }
-
-// PLAYER_KEYS	MenuConfig::getSecondPlayerKeys()
-// {
-// 	return (_P2_keys);
-// }
+PluginManager	*MenuConfig::getPluginManager() {
+	return _pluginManager;
+}

@@ -15,13 +15,18 @@ set(SRC
 	src/GameConfigScene.cpp
 	src/MenuConfig.cpp
 	src/Scene.cpp
+	src/PluginManager.cpp
 )
 
 set(HEADER
 	include/Display.hpp
 	include/IDisplay.hpp
+	include/IPlayer.hpp
+	include/IWeapon.hpp
+	include/IMap.hpp
 	include/IMenuScene.hpp
 	include/Game.hpp
+	include/PluginManager.hpp
 	include/Manager.hpp
 	include/MainMenu.hpp
 	include/GameConfigScene.hpp

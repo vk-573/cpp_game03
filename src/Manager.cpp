@@ -5,11 +5,19 @@ Manager::Manager(IDisplay *window)
 	_window = window;
 }
 
+Manager::~Manager() {
+	delete _menuConfig;
+	delete _game;
+	for (auto scene : _Scenes) {
+		delete scene.second;
+	}
+}
+
 void            Manager::initManager()
 {
 	_menuConfig = new MenuConfig();
 	initScenes();
-	
+	_menuConfig->getPluginManager()->getPlayerInstance("Jojo");
 }
 
 void		Manager::startManager()
@@ -37,48 +45,6 @@ void		Manager::initScenes()
 	_currentScene = _Scenes.at(_MAIN_MENU);
 }
 
-void		Manager::initPlayers()
-{
-	// IUnit	*dave = new Player("Dave");
-	// IUnit	*jojo = new Player("Jojo");
-	// IUnit	*bab = new Player("Bab");
-	// IUnit	*vince = new Player("Vince");
-
-	// createSprite("player1", "./ressources/game/player.png");
-	// createSprite("player2", "./ressources/game/player2.png");
-	// createSprite("player3", "./ressources/game/player3.png");
-	// createSprite("player4", "./ressources/game/player4.png");
-
-	// dave->setSprite(getSprite("player1"));
-	// jojo->setSprite(getSprite("player2"));
-	// bab->setSprite(getSprite("player3"));
-	// vince->setSprite(getSprite("player4"));
-
-	// _Players.emplace(_FIRST, dave);
-	// _Players.emplace(_SECOND, jojo);
-	// _Players.emplace(_THIRD, bab);
-	// _Players.emplace(_FOURTH, vince);
-
-}
-
-void		Manager::initWeapons()
-{
-
-}
-
-void		Manager::deletePlayer()
-{
-
-}
-
-void		Manager::initMaps() {
-
-}
-
-// PLAYERS		&Menu::getPlayers()
-// {
-// 	return (_Players);
-// }
 
 bool		Manager::isRunning()
 {
@@ -107,7 +73,6 @@ void		Manager::startGame()
 {
 	_game = new Game(_window);
 	_game->initGame(_menuConfig);
-	// _game->setPlayers(getPlayers());
 	_game->startGame();
 	delete _game;
 }
