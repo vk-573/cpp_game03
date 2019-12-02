@@ -7,7 +7,7 @@ void            GameConfigScene::initScene()
 	createSprite("changeArrows", "./ressources/menu/changeArrows.png");
 	createSprite("selector", "./ressources/menu/arrow.png");
 	setPlayers(_menuConfig->getPlayers());
-	// setWeapons(_menuConfig->getWeapons());
+	setWeapons(_menuConfig->getWeapons());
 	// setMaps(_menuConfig->getMaps());
 	_selector = getSprite("selector");
 	_selector_pos = 0;
@@ -62,6 +62,52 @@ _MENU_SCENE	GameConfigScene::getSceneID()
 
 // PRIVATE 
 
+void		GameConfigScene::drawP1Config() {
+	sf::Sprite tmpP1 = _currentP1->getSpritePlain();
+	tmpP1.setPosition(860, 60);
+	_window->drawText("Name:", 20, 1090, 40);
+	_window->drawText(_currentP1->getName(), 26, 1160, 36);
+	_window->drawText("HP:", 20, 1090, 70);
+	_window->drawText(std::to_string(_currentP1->getHP()), 26, 1160, 66);
+	_window->drawText("Speed:", 20, 1090, 100);
+	_window->drawText(std::to_string(_currentP1->getSpeed()), 25, 1160, 96);
+	_window->drawSprite(tmpP1);
+
+	sf::Sprite tmpP1W = _currentP1W->getSpritePlain();
+	tmpP1W.setPosition(900, 200);
+	_window->drawText("Name:", 20, 1090, 160);
+	_window->drawText(_currentP1W->getName(), 26, 1160, 156);
+	_window->drawText("Dmg:", 20, 1090, 190);
+	_window->drawText(std::to_string(_currentP1W->getDamage()), 26, 1160, 186);
+	_window->drawText("Speed:", 20, 1090, 220);
+	_window->drawText(std::to_string(_currentP1W->getSpeed()), 25, 1160, 220);
+	_window->drawSprite(tmpP1W);
+
+
+}
+
+void		GameConfigScene::drawP2Config() {
+	sf::Sprite tmpP2 = _currentP2->getSpritePlain();
+	tmpP2.setPosition(860, 316);
+	_window->drawText("Name:", 20, 1090, 296);
+	_window->drawText(_currentP2->getName(), 26, 1160, 292);
+	_window->drawText("HP:", 20, 1090, 326);
+	_window->drawText(std::to_string(_currentP2->getHP()), 26, 1160, 322);
+	_window->drawText("Speed:", 20, 1090, 356);
+	_window->drawText(std::to_string(_currentP2->getSpeed()), 25, 1160, 352);
+	_window->drawSprite(tmpP2);
+
+	sf::Sprite tmpP2W = _currentP2W->getSpritePlain();
+	tmpP2W.setPosition(900, 446);
+	_window->drawText("Name:", 20, 1090, 416);
+	_window->drawText(_currentP2W->getName(), 26, 1160, 412);
+	_window->drawText("Dmg:", 20, 1090, 446);
+	_window->drawText(std::to_string(_currentP2W->getDamage()), 26, 1160, 442);
+	_window->drawText("Speed:", 20, 1090, 476);
+	_window->drawText(std::to_string(_currentP2W->getSpeed()), 25, 1160, 472);
+	_window->drawSprite(tmpP2W);
+}
+
 void            GameConfigScene::drawAll()
 {
         moveBackgroundParallax(_window);
@@ -79,20 +125,9 @@ void            GameConfigScene::drawAll()
 	_window->drawText("B A C K", 30, 865, 660);
 
 	//plugins
-	sf::Sprite tmpP1 = _currentP1->getSpritePlain();
-	tmpP1.setPosition(860, 60);
-	sf::Sprite tmpP2 = _currentP2->getSpritePlain();
-	_window->drawText("Name:", 20, 1090, 40);
-	_window->drawText(_currentP1->getName(), 26, 1160, 36);
-	_window->drawText("HP:", 20, 1090, 70);
-	_window->drawText(std::to_string(_currentP1->getHP()), 26, 1160, 66);
-	_window->drawText("Speed:", 20, 1090, 100);
-	_window->drawText(std::to_string(_currentP1->getSpeed()), 25, 1160, 96);
+	drawP1Config();
+	drawP2Config();
 
-	tmpP2.setPosition(860, 316);
-
-	_window->drawSprite(tmpP1);
-	_window->drawSprite(tmpP2);
 	_window->drawSprite(_selector);
 }
 
@@ -189,23 +224,23 @@ void		GameConfigScene::changePlayer1(_KEYS key) {
 }
 
 void		GameConfigScene::changePlayer1W(_KEYS key) {
-	// if (key == _KEY_RIGHT) {
-	// 	if (_currentP1Wpos + 1 >= _Weapons.size()) {
-	// 		return;	
-	// 	}
-	// 	else {
-	// 		_currentP1Wpos += 1;
-	// 		_currentP1W = _Weapons[_currentP1Wpos];
-	// 	}
-	// } else {
-	// 	if (_currentP1pos - 1 < 0) {
-	// 		return;	
-	// 	}
-	// 	else {
-	// 		_currentP1Wpos -= 1;
-	// 		_currentP1W = _Weapons[_currentP1Wpos];
-	// 	}
-	// }
+	if (key == _KEY_RIGHT) {
+		if (_currentP1Wpos + 1 >= _Weapons.size()) {
+			return;	
+		}
+		else {
+			_currentP1Wpos += 1;
+			_currentP1W = _Weapons[_currentP1Wpos];
+		}
+	} else {
+		if (_currentP1Wpos - 1 < 0) {
+			return;	
+		}
+		else {
+			_currentP1Wpos -= 1;
+			_currentP1W = _Weapons[_currentP1Wpos];
+		}
+	}
 }
 
 void		GameConfigScene::changePlayer2(_KEYS key) {
@@ -229,23 +264,23 @@ void		GameConfigScene::changePlayer2(_KEYS key) {
 }
 
 void		GameConfigScene::changePlayer2W(_KEYS key) {
-	// if (key == _KEY_RIGHT) {
-	// 	if (_currentP2Wpos + 1 >= _Weapons.size()) {
-	// 		return;	
-	// 	}
-	// 	else {
-	// 		_currentP2Wpos += 1;
-	// 		_currentP2W = _Weapons[_currentP2Wpos];
-	// 	}
-	// } else {
-	// 	if (_currentP2pos - 1 < 0) {
-	// 		return;	
-	// 	}
-	// 	else {
-	// 		_currentP2Wpos -= 1;
-	// 		_currentP2W = _Weapons[_currentP2Wpos];
-	// 	}
-	// }
+	if (key == _KEY_RIGHT) {
+		if (_currentP2Wpos + 1 >= _Weapons.size()) {
+			return;	
+		}
+		else {
+			_currentP2Wpos += 1;
+			_currentP2W = _Weapons[_currentP2Wpos];
+		}
+	} else {
+		if (_currentP2Wpos - 1 < 0) {
+			return;	
+		}
+		else {
+			_currentP2Wpos -= 1;
+			_currentP2W = _Weapons[_currentP2Wpos];
+		}
+	}
 }
 
 void		GameConfigScene::changeMap(_KEYS key) {
@@ -268,97 +303,27 @@ void		GameConfigScene::changeMap(_KEYS key) {
 	// }
 }
 
-// void		GameConfigScene::changeShip1(_KEYS key)
-// {
-	// if (key == _KEY_RIGHT)
-	// {
-	// 	if (_P1_pos + 1 != _P2_pos || oneplayer)
-	// 		_P1_pos += 1;
-	// 	else
-	// 		_P1_pos += 2;
-	// 	if (_P1_pos >= _maxShips)
-	// 	{
-	// 		if (_P2_pos == 0 && !oneplayer)
-	// 			_P1_pos = 1;
-	// 		else
-	// 			_P1_pos = 0;
-	// 	}
-	// 	_P1 = _menuConfig->getPlayers().at((_PLAYERS)_P1_pos)->getSpritePlain();
-	// 	_P1.setPosition(sf::Vector2f(560, 170));
-	// }
-	// else
-	// {
-	// 	if (_P1_pos - 1 != _P2_pos || oneplayer)
-	// 		_P1_pos -= 1;
-	// 	else
-	// 		_P1_pos -= 2;
-	// 	if (_P1_pos <= -1)
-	// 	{
-	// 		_P1_pos = _maxShips - 1;
-	// 		if (_P1_pos == _P2_pos && !oneplayer)
-	// 			_P1_pos -= 1;
-	// 	}
-	// 	_P1 = _menuConfig->getPlayers().at((_PLAYERS)_P1_pos)->getSpritePlain();
-	// 	_P1.setPosition(sf::Vector2f(560, 170));
-	// }
-
-// }
-
-// void		GameConfigScene::changeShip2(_KEYS key)
-// {
-	// if (key == _KEY_RIGHT)
-	// {
-	// 	if (_P2_pos + 1 != _P1_pos)
-	// 		_P2_pos += 1;
-	// 	else
-	// 		_P2_pos += 2;
-	// 	if (_P2_pos >= _maxShips)
-	// 	{
-	// 		if (_P1_pos == 0)
-	// 			_P2_pos = 1;
-	// 		else
-	// 			_P2_pos = 0;
-	// 	}
-	// 	_P2 = _menuConfig->getPlayers().at((_PLAYERS)_P2_pos)->getSpritePlain();
-	// 	_P2.setPosition(sf::Vector2f(560, 350));
-	// }
-	// else
-	// {
-	// 	if (_P2_pos - 1 != _P1_pos)
-	// 		_P2_pos -= 1;
-	// 	else
-	// 		_P2_pos -= 2;
-	// 	if (_P2_pos <= -1)
-	// 	{
-	// 		_P2_pos = _maxShips - 1;
-	// 		if (_P1_pos == _P2_pos)
-	// 			_P2_pos -= 1;
-	// 	}			
-	// 	_P2 = _menuConfig->getPlayers().at((_PLAYERS)_P2_pos)->getSpritePlain();
-	// 	_P2.setPosition(sf::Vector2f(560, 350));
-	// }
-// }
-
 void		GameConfigScene::setPlayers(_PLAYERS players) {
 	for (auto p : players) {
 		_Players.push_back(p.second);
-		std::cout << "p : " << p.second->getName() << std::endl;
+		// std::cout << "p : " << p.second->getName() << std::endl;
 	}
 	_currentP1 = _Players[0];
 	_currentP1pos = 0;
 	_currentP2 = _Players[0];
 	_currentP2pos = 0;
-	std::cout << "P1 : " << _currentP1->getName() << std::endl;
-	std::cout << "P2 : " << _currentP2->getName() << std::endl;
+	// std::cout << "P1 : " << _currentP1->getName() << std::endl;
+	// std::cout << "P2 : " << _currentP2->getName() << std::endl;
 }
 void		GameConfigScene::setWeapons(_WEAPONS weapons) {
+	puts("lol");
 	for (auto w : weapons) {
 		_Weapons.push_back(w.second);
 	}
-	// _currentP1W = _Weapons[0];
-	// _currentP1Wpos = 0;
-	// _currentP2W = _Weapons[0];
-	// _currentP2Wpos = 0;
+	_currentP1W = _Weapons[0];
+	_currentP1Wpos = 0;
+	_currentP2W = _Weapons[0];
+	_currentP2Wpos = 0;
 }
 void		GameConfigScene::setMaps(_MAPS maps) {
 	for (auto m : maps) {

@@ -16,12 +16,13 @@ class IWeapon {
 	public:
 		virtual void			setSprite(sf::Sprite sprite) = 0;
                 virtual void                    initTextures() = 0;
-		virtual sf::Sprite		&getSprite() const = 0;
+		virtual sf::Sprite		&getSprite() = 0;
 		virtual sf::Sprite		getSpritePlain() = 0;
 		virtual void			setPosition(const int &x, const int &y) = 0;
+		virtual bullet          	fire() = 0;
                 virtual const std::string       &getName() const = 0;
-		virtual void			move() = 0;
-		virtual std::vector<bullet>	fire() = 0;
+		virtual const float		&getSpeed() const = 0;
+		virtual const float		&getFireSpeed() const = 0;
 		virtual const int		&getDamage() const = 0;
 
 };

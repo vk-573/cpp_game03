@@ -3,7 +3,7 @@
 PluginManager::~PluginManager()
 {
 	closePlayersLibs();
-        // closeWeaponsLibs();
+        closeWeaponsLibs();
         // closeMapsLibs();
 }
 
@@ -12,26 +12,24 @@ void            PluginManager::loadPLugings() {
         _weaponsPath = "./libs/weapons";
         _mapsPath = "./libs/maps";
         loadPlayers();
-        // loadWeapons();
+        loadWeapons();
         // loadMaps();
-        // openPlayersLibs();
 }
 
 // PRIVATE
 void            PluginManager::loadPlayers() {
         getPaths(_playersPath, _player_type);
-        for (auto lol : _playersLibs) {
-                std::cout << lol << std::endl;
-        }
         openPlayersLibs();
 }
 
 void            PluginManager::loadWeapons() {
         getPaths(_weaponsPath, _weapon_type);
+        openWeaponsLibs();
 }
 
 void            PluginManager::loadMaps() {
         getPaths(_mapsPath, _map_type);
+        // openMapsLibs();
 }
 
 _PLAYERS        PluginManager::getPlayers() {
@@ -116,6 +114,7 @@ void		PluginManager::openWeaponsLibs()
 {
         for (auto path : _weaponsLibs) {
 
+                //std::cout << "opeinig weaopon the path :" << path << std::endl;                
                 void *handleLib = dlopen(path.c_str(), RTLD_LAZY);
                 if (!handleLib)
                 {
@@ -125,6 +124,7 @@ void		PluginManager::openWeaponsLibs()
                 IWeapon *tmp;
         	IWeapon	*(* create)() = (IWeapon *(*)())dlsym(handleLib, "getInstance");
         	tmp = create();
+                //std::cout << "tmp weapon name :" << tmp->getName() << std::endl;
                 _weaponsHandleLibs.emplace(tmp->getName(), handleLib);
                 _Weapons.emplace(tmp->getName(), tmp);
         }

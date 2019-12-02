@@ -1,9 +1,9 @@
 #include "../../include/IWeapon.hpp"
 
-class WeaponZeus : public IWeapon {
+class WeaponBazooka : public IWeapon {
         public:
-		WeaponZeus();
-		~WeaponZeus();
+		WeaponBazooka();
+		~WeaponBazooka();
 
 		void			setSprite(sf::Sprite sprite);
                 void                    initTextures();
@@ -27,27 +27,27 @@ class WeaponZeus : public IWeapon {
                 bullet                  _bullet;
 };
 
-WeaponZeus::WeaponZeus() {
-	_name = "Zeus";
-	_speed = 3.0;
-        _fireSpeed = 0.35;
-        _damage = 35;
+WeaponBazooka::WeaponBazooka() {
+	_name = "Bazooka";
+	_speed = 1;
+        _fireSpeed = 0.5;
+        _damage = 50;
 	initTextures();
         _bullet.damage = _damage;
         _bullet.speed = _speed;
         _bullet.sprite = getSpritePlain();
 }
 
-WeaponZeus::~WeaponZeus(){
+WeaponBazooka::~WeaponBazooka(){
 	
 }
 
-void		WeaponZeus::setSprite(sf::Sprite sprite) {
+void		WeaponBazooka::setSprite(sf::Sprite sprite) {
 	_sprite = sprite;
 }
 
-void                    WeaponZeus::initTextures() {
-	std::string	path = "./libs/weapons/ressources/WeaponZeus.png";
+void                    WeaponBazooka::initTextures() {
+	std::string	path = "./libs/weapons/ressources/WeaponBazooka.png";
 	if (!_texture.loadFromFile(path)) {
 		std::cout << "Error while loading texture :" << path << std::endl;
 		exit(84);
@@ -55,43 +55,42 @@ void                    WeaponZeus::initTextures() {
 	_sprite.setTexture(_texture);
 }
 
-sf::Sprite		&WeaponZeus::getSprite() {
+sf::Sprite		&WeaponBazooka::getSprite() {
 	return (_sprite);
 }
 
-sf::Sprite		WeaponZeus::getSpritePlain() {
+sf::Sprite		WeaponBazooka::getSpritePlain() {
 	sf::Sprite tmp = _sprite;
 	return tmp;
 }
 
-void			WeaponZeus::setPosition(const int &x, const int &y) {
+void			WeaponBazooka::setPosition(const int &x, const int &y) {
 	_pos.x = x;
 	_pos.y = y;
 	_sprite.setPosition(_pos);
 }
 
-bullet			WeaponZeus::fire() {
+bullet			WeaponBazooka::fire() {
 	return _bullet;
 }
 
 
-const std::string	&WeaponZeus::getName() const {
+const std::string	&WeaponBazooka::getName() const {
 	return _name;
 }
-const float		&WeaponZeus::getSpeed() const {
+const float		&WeaponBazooka::getSpeed() const {
 	return _speed;
 }
-const float		&WeaponZeus::getFireSpeed() const {
+const float		&WeaponBazooka::getFireSpeed() const {
 	return _fireSpeed;
 }
-
-const int	        &WeaponZeus::getDamage() const {
+const int	        &WeaponBazooka::getDamage() const {
         return _damage;
 }
 
 extern "C"
-WeaponZeus            *getInstance()
+WeaponBazooka            *getInstance()
 {
-	WeaponZeus *tmp = new WeaponZeus();
+	WeaponBazooka *tmp = new WeaponBazooka();
         return tmp;
 }

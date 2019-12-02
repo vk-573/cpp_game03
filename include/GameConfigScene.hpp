@@ -25,6 +25,8 @@ class GameConfigScene : public MainMenu {
 		void		changePlayer2(_KEYS);
 		void		changePlayer2W(_KEYS);
 		void		changeMap(_KEYS);
+		void		drawP1Config();
+		void		drawP2Config();
 
 		bool		oneplayer = true;
 		bool		online = false;

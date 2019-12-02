@@ -1,6 +1,6 @@
 #include "../../include/IWeapon.hpp"
 
-class WeaponSpeedy : public IPlayer {
+class WeaponSpeedy : public IWeapon {
         public:
 		WeaponSpeedy();
 		~WeaponSpeedy();
@@ -10,28 +10,32 @@ class WeaponSpeedy : public IPlayer {
 		sf::Sprite		&getSprite();
 		sf::Sprite		getSpritePlain();
 		void			setPosition(const int &x, const int &y);
-		std::vector<bullet>	fire();
-		void			gotHit(const int &damage);
-		bool			isDead();
-		const int		&getHP() const;
+		bullet                  fire();
 		const std::string	&getName() const;
 		const float		&getSpeed() const;
+		const float		&getFireSpeed() const;
+		const int	        &getDamage() const;
+
 	private:
 		std::string		_name;
-		float			_speed;
-		int			_hp;
-		IWeapon			*_weapon;
 		sf::Sprite		_sprite;
 		sf::Texture		_texture;
+                float                   _speed;
+                float                   _fireSpeed;
+                int                     _damage;
 		sf::Vector2f		_pos;
-		bool			_diying = false;
+                bullet                  _bullet;
 };
 
 WeaponSpeedy::WeaponSpeedy() {
-	_name = "Dave";
-	_hp = 80;
-	_speed = 0.3;
+	_name = "Speedy";
+	_speed = 2.5;
+        _fireSpeed = 1.3;
+        _damage = 10;
 	initTextures();
+        _bullet.damage = _damage;
+        _bullet.speed = _speed;
+        _bullet.sprite = getSpritePlain();
 }
 
 WeaponSpeedy::~WeaponSpeedy(){
@@ -43,7 +47,7 @@ void		WeaponSpeedy::setSprite(sf::Sprite sprite) {
 }
 
 void                    WeaponSpeedy::initTextures() {
-	std::string	path = "./libs/players/ressources/WeaponSpeedy.png";
+	std::string	path = "./libs/weapons/ressources/WeaponSpeedy.png";
 	if (!_texture.loadFromFile(path)) {
 		std::cout << "Error while loading texture :" << path << std::endl;
 		exit(84);
@@ -66,35 +70,10 @@ void			WeaponSpeedy::setPosition(const int &x, const int &y) {
 	_sprite.setPosition(_pos);
 }
 
-void			WeaponSpeedy::move(const int &dir) {
-
+bullet			WeaponSpeedy::fire() {
+	return _bullet;
 }
 
-void			WeaponSpeedy::setWeapon(IWeapon *weapon) {
-	_weapon = weapon;
-}
-
-IWeapon			*WeaponSpeedy::getWeapon() const {
-	return _weapon;
-}
-
-void			WeaponSpeedy::fire() {
-	_weapon->fire();
-}
-
-void			WeaponSpeedy::gotHit(const int &damage) {
-	_hp -= damage;
-	if (_hp <= 0)
-		_diying = true;
-}
-
-bool			WeaponSpeedy::isDead() {
-	return _diying;
-}
-
-const int		&WeaponSpeedy::getHP() const {
-	return _hp;
-}
 
 const std::string	&WeaponSpeedy::getName() const {
 	return _name;
@@ -102,6 +81,14 @@ const std::string	&WeaponSpeedy::getName() const {
 const float		&WeaponSpeedy::getSpeed() const {
 	return _speed;
 }
+const float		&WeaponSpeedy::getFireSpeed() const {
+	return _fireSpeed;
+}
+
+const int	        &WeaponSpeedy::getDamage() const {
+        return _damage;
+}
+
 
 extern "C"
 WeaponSpeedy            *getInstance()
