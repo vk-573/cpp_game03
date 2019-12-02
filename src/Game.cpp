@@ -34,7 +34,9 @@ void		Game::initGame(MenuConfig *menuConfig)
 	std::cout << "p1 weap: " << _p1->getWeapon()->getName() << std::endl;
 	std::cout << "p2 name: " << _p2->getName() << std::endl;
 	std::cout << "p2 weap: " << _p2->getWeapon()->getName() << std::endl;
+	std::cout << "current Map:: " << _map->getName() << std::endl;	
 
+	_map->init(_window);
 	_p1->setPosition(100, 320);
 	_p2->setPosition(900, 320);
 
@@ -202,7 +204,7 @@ void		Game::drawBullets() {
 }
 
 void		Game::drawMap() {
-	// _map->update();
+	_map->update();
 	// for (sf::Sprite tmp : _map->getSprites()) {
 	// 	_window->drawSprite(tmp);
 	// }

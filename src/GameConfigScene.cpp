@@ -8,7 +8,7 @@ void            GameConfigScene::initScene()
 	createSprite("selector", "./ressources/menu/arrow.png");
 	setPlayers(_menuConfig->getPlayers());
 	setWeapons(_menuConfig->getWeapons());
-	// setMaps(_menuConfig->getMaps());
+	setMaps(_menuConfig->getMaps());
 	_selector = getSprite("selector");
 	_selector_pos = 0;
 	// _maxShips = _menuConfig->getPlayers().size();
@@ -56,7 +56,7 @@ _MENU_SCENE            GameConfigScene::startScene()
 	_menuConfig->setCurrentP1W(_currentP1W->getName());
 	_menuConfig->setCurrentP2(_currentP2->getName());
 	_menuConfig->setCurrentP2W(_currentP2W->getName());
-	// _menuConfig->setCurrentMap(_currentMap->getName());
+	_menuConfig->setCurrentMap(_currentMap->getName());
 	return (_targetScene);
 }
 
@@ -334,6 +334,6 @@ void		GameConfigScene::setMaps(_MAPS maps) {
 	for (auto m : maps) {
 		_Maps.push_back(m.second);
 	}
-	// _currentMap = _Maps[0];
-	// _currentMappos = 0;
+	_currentMap = _Maps[0];
+	_currentMappos = 0;
 }
