@@ -5,6 +5,16 @@
 #include "IWeapon.hpp"
 #include <map>
 
+enum    _P_MOVE {
+        _UP,
+        _UP_RIGHT,
+        _RIGHT,
+        _DOWN_RIGHT,
+        _DOWN,
+        _DOWN_LEFT,
+        _LEFT,
+        _UP_LEFT,
+};
 
 class IPlayer {
 	public:
@@ -13,7 +23,7 @@ class IPlayer {
 		virtual sf::Sprite		&getSprite() = 0;
 		virtual sf::Sprite		getSpritePlain() = 0;
 		virtual void			setPosition(const int &x, const int &y) = 0;
-		virtual void			move(const int &dir) = 0;
+		virtual void			move(const _P_MOVE &dir) = 0;
 		virtual void			setWeapon(IWeapon *weapon) = 0;
 		virtual IWeapon			*getWeapon() const = 0;
 		virtual void			fire() = 0;

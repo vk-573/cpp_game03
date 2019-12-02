@@ -35,33 +35,48 @@ KEY_EVENT	Display::checkEvents()
 	while (_Window.pollEvent(_Event))
 	{
  		if (_Event.type == sf::Event::Closed)
-			quit();
+				quit();
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
-			_Events.at(sf::Keyboard::Escape) = true;
+				_Events.at(sf::Keyboard::Escape) = true;
+				std::cout << "lolol" << std::endl;
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return)) {
-			_Events.at(sf::Keyboard::Return) = true;
+				_Events.at(sf::Keyboard::Return) = true;
+
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
+			// puts("key space pressed");
+			_Events.at(sf::Keyboard::Space) = true; 
+
 		}
 	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
-		// puts("key space pressed");
-		_Events.at(sf::Keyboard::Space) = true; 
-	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
-		// puts("key up pressed");
-		_Events.at(sf::Keyboard::Up) = true;
-	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
-		// puts("key down pressed");
-		_Events.at(sf::Keyboard::Down) = true;
-	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
-		// puts("key left pressed");
-		_Events.at(sf::Keyboard::Left) = true;
-	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
-		// puts("key right pressed");
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
+			// puts("key up pressed");
+			_Events.at(sf::Keyboard::Up) = true;
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
+			// puts("key down pressed");
+			_Events.at(sf::Keyboard::Down) = true;
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
+			// puts("key left pressed");
+			_Events.at(sf::Keyboard::Left) = true;
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
+			// puts("key right pressed");
 		_Events.at(sf::Keyboard::Right) = true;
+		}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z)) {
+		_Events.at(sf::Keyboard::Z) = true;
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
+		_Events.at(sf::Keyboard::D) = true;
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
+		_Events.at(sf::Keyboard::S) = true;
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) {
+		_Events.at(sf::Keyboard::Q) = true;
 	}
 	return (_Events);
 }

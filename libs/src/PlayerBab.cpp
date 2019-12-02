@@ -10,7 +10,7 @@ class PlayerBab : public IPlayer {
 		sf::Sprite		&getSprite();
 		sf::Sprite		getSpritePlain();
 		void			setPosition(const int &x, const int &y);
-		void			move(const int &dir);
+		void			move(const _P_MOVE &dir);
 		void			setWeapon(IWeapon *weapon);
 		IWeapon			*getWeapon() const;
 		void			fire();
@@ -33,7 +33,7 @@ class PlayerBab : public IPlayer {
 PlayerBab::PlayerBab() {
 	_name = "Bab";
 	_hp = 120;
-	_speed = 0.13;
+	_speed = 3.3;
 	initTextures();
 }
 
@@ -69,8 +69,29 @@ void			PlayerBab::setPosition(const int &x, const int &y) {
 	_sprite.setPosition(_pos);
 }
 
-void			PlayerBab::move(const int &dir) {
-
+void			PlayerBab::move(const _P_MOVE &dir) {
+        if (dir == _UP) {
+                _pos.y = _pos.y - _speed;
+	} else if (dir == _UP_RIGHT) {
+                _pos.x = _pos.x + _speed * 0.7;
+                _pos.y = _pos.y - _speed * 0.7;
+	} else if (dir == _RIGHT) {
+                _pos.x = _pos.x + _speed;
+	} else if (dir == _DOWN_RIGHT) {
+                _pos.x = _pos.x + _speed * 0.7;
+                _pos.y = _pos.y + _speed * 0.7;
+	} else if (dir == _DOWN) {
+                _pos.y = _pos.y + _speed;
+	} else if (dir == _DOWN_LEFT) {
+		_pos.x = _pos.x - _speed * 0.7;
+                _pos.y = _pos.y + _speed * 0.7;
+	} else if (dir == _LEFT) {
+                _pos.x = _pos.x - _speed;
+	} else if (dir == _UP_LEFT) {
+                _pos.x = _pos.x - _speed * 0.7;
+                _pos.y = _pos.y - _speed * 0.7;
+	}
+        setPosition(_pos.x, _pos.y);
 }
 
 void			PlayerBab::setWeapon(IWeapon *weapon) {

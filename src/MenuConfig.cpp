@@ -22,6 +22,11 @@ MenuConfig::MenuConfig()
 }
 
 MenuConfig::~MenuConfig() {
+	delete _w1;
+	delete _w2;
+	delete _p1;
+	delete _p2;
+	//delete _map;
 	delete _pluginManager;
 }
 
@@ -47,4 +52,32 @@ _WEAPONS	MenuConfig::getWeapons() {
 
 PluginManager	*MenuConfig::getPluginManager() {
 	return _pluginManager;
+}
+
+void		MenuConfig::setCurrentP1(const std::string &playerPlugin) {
+	_p1 = _pluginManager->getPlayerInstance(playerPlugin);
+}
+void		MenuConfig::setCurrentP1W(const std::string &weaponPlugin) {
+	_w1 = _pluginManager->getWeaponInstance(weaponPlugin);
+}
+void		MenuConfig::setCurrentP2(const std::string &playerPlugin) {
+	_p2 = _pluginManager->getPlayerInstance(playerPlugin);
+}
+void		MenuConfig::setCurrentP2W(const std::string &weaponPlugin) {
+	_w2 = _pluginManager->getWeaponInstance(weaponPlugin);
+}
+void		MenuConfig::setCurrentMap(const std::string &mapPlugin) {
+	_choosenMap = _pluginManager->getMapInstance(mapPlugin);
+}
+
+IPlayer		*MenuConfig::getCurrentP1() {
+	_p1->setWeapon(_w1);
+	return _p1;
+}
+IPlayer		*MenuConfig::getCurrentP2() {
+	_p2->setWeapon(_w2);
+	return _p2;
+}
+IMap		*MenuConfig::getCurrentMap() {
+	return _choosenMap;
 }

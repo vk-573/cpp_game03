@@ -52,6 +52,11 @@ _MENU_SCENE            GameConfigScene::startScene()
 		drawAll();
 		_window->refresh();
 	}
+	_menuConfig->setCurrentP1(_currentP1->getName());
+	_menuConfig->setCurrentP1W(_currentP1W->getName());
+	_menuConfig->setCurrentP2(_currentP2->getName());
+	_menuConfig->setCurrentP2W(_currentP2W->getName());
+	// _menuConfig->setCurrentMap(_currentMap->getName());
 	return (_targetScene);
 }
 

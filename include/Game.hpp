@@ -15,18 +15,24 @@ class Game : public Scene {
 
 	protected:
 	private:
+		void		processEvents();
+		void		processPlayer1();
+		void		processPlayer2();
+		// void		initPlayers();
 		void		quit();
 		void		dispEnd();
 		void		initPlayers();
+		void		drawAll();
+		void		drawPlayers();
+		void		drawBullets();
+		void		drawMap();
 		IDisplay	*_window;
-		
-		// STAGES		_Stages;
-		//WEAPONS		_Weapons;
-		// IStage*		_currentStage;
-		// int		_current = 0;
 		bool		_running = false;
+		KEY_EVENT	_Events;
 		MenuConfig	*_menuConfig;
-		// PluginsManager	*_plugins;
+		IPlayer		*_p1;
+		IPlayer		*_p2;
+		IMap		*_map;
 		// sf::Clock	_Time;
 
 };

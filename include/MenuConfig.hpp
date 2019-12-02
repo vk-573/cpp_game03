@@ -24,6 +24,14 @@ class MenuConfig {
 		_MAPS		getMaps();
 		void		setWeapons(_WEAPONS weapons);
 		_WEAPONS	getWeapons();
+		void		setCurrentP1(const std::string &playerPlugin);
+		void		setCurrentP1W(const std::string &weaponPlugin);
+		void		setCurrentP2(const std::string &playerPlugin);
+		void		setCurrentP2W(const std::string &weaponPlugin);
+		void		setCurrentMap(const std::string &mapPlugin);
+		IPlayer		*getCurrentP1();
+		IPlayer		*getCurrentP2();
+		IMap		*getCurrentMap();
 		PluginManager	*getPluginManager();
 	private:	
 		PluginManager	*_pluginManager;
