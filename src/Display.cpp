@@ -38,7 +38,6 @@ KEY_EVENT	Display::checkEvents()
 				quit();
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
 				_Events.at(sf::Keyboard::Escape) = true;
-				std::cout << "lolol" << std::endl;
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return)) {
 				_Events.at(sf::Keyboard::Return) = true;

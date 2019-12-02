@@ -13,18 +13,11 @@ Game::Game(IDisplay *window) : _window(window)
 
 Game::~Game()
 {
-// 	delete _plugins;
-// 	for (auto &weapon : _Weapons)
-// 		delete weapon.second;
-// 	_Weapons.clear();
-// 	for (auto &stage : _Stages)
-// 		delete stage.second;
-// 	_Stages.clear();
+
 }
 
 void		Game::initGame(MenuConfig *menuConfig)
 {
-	// _plugins = new PluginsManager;
 	_menuConfig = menuConfig;
 	_p1 = _menuConfig->getCurrentP1();
 	_p2 = _menuConfig->getCurrentP2();
@@ -39,25 +32,8 @@ void		Game::initGame(MenuConfig *menuConfig)
 	_map->init(_window);
 	_p1->setPosition(100, 320);
 	_p2->setPosition(900, 320);
-
-	// initStages();
-	// initWeapons();
-	// initPlayers();
+	_p2->getSprite().scale(-1, 1);
 }
-
-// void		Game::setPlayers(PLAYERS &players)
-// {
-// 	_Players = players;
-// 	// for (auto const& x : _Players)
-// 	// {
-// 	// 	x.second->setWeapon(_Weapons[0].second);
-// 	// }
-// }
-
-// PLAYERS		&Game::getPlayers()
-// {
-// 	return (_Players);
-// }
 
 void		Game::startGame()
 {
@@ -145,7 +121,11 @@ void		Game::processPlayer1() {
 		_p1->move(_LEFT);
 	}
 	if (_Events.at(sf::Keyboard::Space)) {
-		_p1->fire();
+		bullet tmp = _p1->fire();
+		sf::Vector2f pos = _p1->getPosition();
+		tmp.sprite.setPosition(pos.x + _p1->getSprite().getTextureRect().width , pos.y + 30);
+		tmp.id = _b1;
+		_p1Bullets.emplace(_b1++, tmp);
 	}
 }
 
@@ -184,7 +164,14 @@ void		Game::processPlayer2() {
 		_p2->move(_LEFT);
 	}
 	if (_Events.at(sf::Keyboard::Return)) {
-		_p2->fire();
+		bullet tmp = _p2->fire();
+		sf::Vector2f pos = _p2->getPosition();
+		tmp.sprite.scale(-1, 1);
+		tmp.sprite.setPosition(pos.x - _p2->getSprite().getTextureRect().width , pos.y + 30);
+		tmp.id = _b2;
+		_p2Bullets.emplace(_b2++, tmp);
+		std::cout << "width:" << tmp.sprite.getTextureRect().width << std::endl;
+		std::cout << "height:" << tmp.sprite.getTextureRect().height << std::endl;
 	}
 }
 
@@ -200,7 +187,34 @@ void		Game::drawPlayers() {
 }
 
 void		Game::drawBullets() {
+	for (auto &b : _p1Bullets) {
+		b.second.sprite.move(b.second.speed, 0);
+		_window->drawSprite(b.second.sprite);
+		if (b.second.sprite.getPosition().x > 1300) {
+			_p1Bullets.erase(b.second.id);
+		}
+		if (gotP2Hit(b.second)) {
+			_p1Bullets.erase(b.second.id);
+		}
+	}
+	for (auto &b : _p2Bullets) {
+		b.second.sprite.move(-b.second.speed, 0);
+		_window->drawSprite(b.second.sprite);
+		if (b.second.sprite.getPosition().x < -200) {
+			_p2Bullets.erase(b.second.id);
+		}
+		if (gotP1Hit(b.second)) {
+			_p2Bullets.erase(b.second.id);
+		}
+	}
+}
 
+bool		Game::gotP2Hit(const bullet &b) {
+	return false;
+}
+
+bool		Game::gotP1Hit(const bullet &b) {
+	return false;
 }
 
 void		Game::drawMap() {

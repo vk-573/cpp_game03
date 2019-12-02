@@ -18,7 +18,6 @@ class Game : public Scene {
 		void		processEvents();
 		void		processPlayer1();
 		void		processPlayer2();
-		// void		initPlayers();
 		void		quit();
 		void		dispEnd();
 		void		initPlayers();
@@ -26,6 +25,8 @@ class Game : public Scene {
 		void		drawPlayers();
 		void		drawBullets();
 		void		drawMap();
+		bool		gotP1Hit(const bullet &b);
+		bool		gotP2Hit(const bullet &b);
 		IDisplay	*_window;
 		bool		_running = false;
 		KEY_EVENT	_Events;
@@ -33,6 +34,10 @@ class Game : public Scene {
 		IPlayer		*_p1;
 		IPlayer		*_p2;
 		IMap		*_map;
+		std::map<int, bullet>	_p1Bullets;
+		std::map<int, bullet>	_p2Bullets;
+		int		_b1 = 0;
+		int		_b2 = 0;
 		// sf::Clock	_Time;
 
 };

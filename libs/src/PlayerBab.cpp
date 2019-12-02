@@ -10,10 +10,11 @@ class PlayerBab : public IPlayer {
 		sf::Sprite		&getSprite();
 		sf::Sprite		getSpritePlain();
 		void			setPosition(const int &x, const int &y);
+		const sf::Vector2f	&getPosition();
 		void			move(const _P_MOVE &dir);
 		void			setWeapon(IWeapon *weapon);
 		IWeapon			*getWeapon() const;
-		void			fire();
+		bullet			fire();
 		void			gotHit(const int &damage);
 		bool			isDead();
 		const int		&getHP() const;
@@ -69,6 +70,11 @@ void			PlayerBab::setPosition(const int &x, const int &y) {
 	_sprite.setPosition(_pos);
 }
 
+const sf::Vector2f	&PlayerBab::getPosition() {
+        return _sprite.getPosition();
+}
+
+
 void			PlayerBab::move(const _P_MOVE &dir) {
         if (dir == _UP) {
                 _pos.y = _pos.y - _speed;
@@ -102,8 +108,8 @@ IWeapon			*PlayerBab::getWeapon() const {
 	return _weapon;
 }
 
-void			PlayerBab::fire() {
-	_weapon->fire();
+bullet			PlayerBab::fire() {
+	return _weapon->fire();
 }
 
 void			PlayerBab::gotHit(const int &damage) {

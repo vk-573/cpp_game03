@@ -23,10 +23,11 @@ class IPlayer {
 		virtual sf::Sprite		&getSprite() = 0;
 		virtual sf::Sprite		getSpritePlain() = 0;
 		virtual void			setPosition(const int &x, const int &y) = 0;
+		virtual const sf::Vector2f	&getPosition() = 0;
 		virtual void			move(const _P_MOVE &dir) = 0;
 		virtual void			setWeapon(IWeapon *weapon) = 0;
 		virtual IWeapon			*getWeapon() const = 0;
-		virtual void			fire() = 0;
+		virtual bullet			fire() = 0;
 		virtual void			gotHit(const int &damage) = 0;
 		virtual bool			isDead() = 0;
 		virtual const int		&getHP() const = 0;

@@ -12,8 +12,9 @@ class PlayerDave : public IPlayer {
 		void			setPosition(const int &x, const int &y);
 		void			move(const _P_MOVE &dir);
 		void			setWeapon(IWeapon *weapon);
+		const sf::Vector2f	&getPosition();
 		IWeapon			*getWeapon() const;
-		void			fire();
+		bullet			fire();
 		void			gotHit(const int &damage);
 		bool			isDead();
 		const int		&getHP() const;
@@ -69,6 +70,10 @@ void			PlayerDave::setPosition(const int &x, const int &y) {
 	_sprite.setPosition(_pos);
 }
 
+const sf::Vector2f	&PlayerDave::getPosition() {
+        return _sprite.getPosition();
+}
+
 void			PlayerDave::move(const _P_MOVE &dir) {
         if (dir == _UP) {
                 _pos.y = _pos.y - _speed;
@@ -102,8 +107,8 @@ IWeapon			*PlayerDave::getWeapon() const {
 	return _weapon;
 }
 
-void			PlayerDave::fire() {
-	_weapon->fire();
+bullet			PlayerDave::fire() {
+	return _weapon->fire();
 }
 
 void			PlayerDave::gotHit(const int &damage) {
