@@ -1,19 +1,16 @@
-#include "../../include/IPlayer.hpp"
+#include "../../include/IWeapon.hpp"
 
-class PlayerJojo : public IPlayer {
+class WeaponSpeedy : public IPlayer {
         public:
-		PlayerJojo();
-		~PlayerJojo();
+		WeaponSpeedy();
+		~WeaponSpeedy();
 
 		void			setSprite(sf::Sprite sprite);
                 void                    initTextures();
 		sf::Sprite		&getSprite();
 		sf::Sprite		getSpritePlain();
 		void			setPosition(const int &x, const int &y);
-		void			move(const int &dir);
-		void			setWeapon(IWeapon *weapon);
-		IWeapon			*getWeapon() const;
-		void			fire();
+		std::vector<bullet>	fire();
 		void			gotHit(const int &damage);
 		bool			isDead();
 		const int		&getHP() const;
@@ -30,23 +27,23 @@ class PlayerJojo : public IPlayer {
 		bool			_diying = false;
 };
 
-PlayerJojo::PlayerJojo() {
-	_name = "Jojo";
-	_hp = 100;
-	_speed = 0.2;
+WeaponSpeedy::WeaponSpeedy() {
+	_name = "Dave";
+	_hp = 80;
+	_speed = 0.3;
 	initTextures();
 }
 
-PlayerJojo::~PlayerJojo(){
+WeaponSpeedy::~WeaponSpeedy(){
 	
 }
 
-void		PlayerJojo::setSprite(sf::Sprite sprite) {
+void		WeaponSpeedy::setSprite(sf::Sprite sprite) {
 	_sprite = sprite;
 }
 
-void                    PlayerJojo::initTextures() {
-	std::string	path = "./libs/players/ressources/playerJojo.png";
+void                    WeaponSpeedy::initTextures() {
+	std::string	path = "./libs/players/ressources/WeaponSpeedy.png";
 	if (!_texture.loadFromFile(path)) {
 		std::cout << "Error while loading texture :" << path << std::endl;
 		exit(84);
@@ -54,63 +51,61 @@ void                    PlayerJojo::initTextures() {
 	_sprite.setTexture(_texture);
 }
 
-sf::Sprite		&PlayerJojo::getSprite() {
+sf::Sprite		&WeaponSpeedy::getSprite() {
 	return (_sprite);
 }
 
-sf::Sprite		PlayerJojo::getSpritePlain() {
+sf::Sprite		WeaponSpeedy::getSpritePlain() {
 	sf::Sprite tmp = _sprite;
 	return tmp;
 }
 
-void			PlayerJojo::setPosition(const int &x, const int &y) {
+void			WeaponSpeedy::setPosition(const int &x, const int &y) {
 	_pos.x = x;
 	_pos.y = y;
 	_sprite.setPosition(_pos);
 }
 
-void			PlayerJojo::move(const int &dir) {
+void			WeaponSpeedy::move(const int &dir) {
 
 }
 
-void			PlayerJojo::setWeapon(IWeapon *weapon) {
+void			WeaponSpeedy::setWeapon(IWeapon *weapon) {
 	_weapon = weapon;
 }
 
-IWeapon			*PlayerJojo::getWeapon() const {
+IWeapon			*WeaponSpeedy::getWeapon() const {
 	return _weapon;
 }
 
-void			PlayerJojo::fire() {
+void			WeaponSpeedy::fire() {
 	_weapon->fire();
 }
 
-void			PlayerJojo::gotHit(const int &damage) {
+void			WeaponSpeedy::gotHit(const int &damage) {
 	_hp -= damage;
 	if (_hp <= 0)
 		_diying = true;
 }
 
-bool			PlayerJojo::isDead() {
+bool			WeaponSpeedy::isDead() {
 	return _diying;
 }
 
-const int		&PlayerJojo::getHP() const {
+const int		&WeaponSpeedy::getHP() const {
 	return _hp;
 }
 
-const std::string	&PlayerJojo::getName() const {
+const std::string	&WeaponSpeedy::getName() const {
 	return _name;
 }
-
-const float		&PlayerJojo::getSpeed() const {
+const float		&WeaponSpeedy::getSpeed() const {
 	return _speed;
 }
 
-
 extern "C"
-PlayerJojo            *getInstance()
+WeaponSpeedy            *getInstance()
 {
-	PlayerJojo *tmp = new PlayerJojo();
+	WeaponSpeedy *tmp = new WeaponSpeedy();
         return tmp;
 }

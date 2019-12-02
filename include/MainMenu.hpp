@@ -1,10 +1,3 @@
-/*
-** EPITECH PROJECT, 2018
-** VK
-** File description:
-** main menu class declaration
-*/
-
 #ifndef MAINMENU_HPP_
 	#define MAINMENU_HPP_
 
@@ -16,8 +9,11 @@ enum _BUTTON
 	_PLAY,
 	_LOCAL_MULTI,
 	_NB_PLAYERS,
-	_SHIPS1,
-	_SHIPS2,
+	_PLAYER1,
+	_PLAYER2,
+	_PLAYER1_WEAPON,
+	_PLAYER2_WEAPON,
+	_MAP,
 	_OPTIONS,
 	_BACK,
 	_EXIT_B

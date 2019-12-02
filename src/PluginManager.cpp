@@ -96,6 +96,7 @@ void		PluginManager::openPlayersLibs()
 {
         for (auto path : _playersLibs) {
 
+                // std::cout << "opeinig the path :" << path << std::endl;
                 void *handleLib = dlopen(path.c_str(), RTLD_LAZY);
                 if (!handleLib)
                 {
@@ -105,6 +106,7 @@ void		PluginManager::openPlayersLibs()
                 IPlayer *tmp;
         	IPlayer	*(* create)() = (IPlayer *(*)())dlsym(handleLib, "getInstance");
         	tmp = create();
+                // std::cout << "tmp name :" << tmp->getName() << std::endl;
                 _playersHandleLibs.emplace(tmp->getName(), handleLib);
                 _Players.emplace(tmp->getName(), tmp);
         }
