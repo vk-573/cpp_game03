@@ -5,6 +5,7 @@ void            GameConfigScene::initScene()
         createSprite("background1", "./ressources/menu/bg1.png");
 	createSprite("button", "./ressources/menu/button.png");
 	createSprite("changeArrows", "./ressources/menu/changeArrows.png");
+	createSprite("changeArrowsBig", "./ressources/menu/changeArrowsBig.png");
 	createSprite("selector", "./ressources/menu/arrow.png");
 	setPlayers(_menuConfig->getPlayers());
 	setWeapons(_menuConfig->getWeapons());
@@ -31,10 +32,12 @@ void            GameConfigScene::initScene()
 	_MenuElements[2].second.setPosition(sf::Vector2f(770, 320));
 	_MenuElements.push_back(std::make_pair(_PLAYER2_WEAPON, getSprite("changeArrows")));
 	_MenuElements[3].second.setPosition(sf::Vector2f(770, 440));
+	_MenuElements.push_back(std::make_pair(_MAP, getSprite("changeArrowsBig")));
 	_MenuElements.push_back(std::make_pair(_PLAY, getSprite("button")));
 	_MenuElements.push_back(std::make_pair(_BACK, getSprite("button")));
-	_MenuElements[4].second.setPosition(sf::Vector2f(825, 572));
-	_MenuElements[5].second.setPosition(sf::Vector2f(825, 652));
+	_MenuElements[4].second.setPosition(sf::Vector2f(90, 290));
+	_MenuElements[5].second.setPosition(sf::Vector2f(825, 572));
+	_MenuElements[6].second.setPosition(sf::Vector2f(825, 652));
 	_elementsNB = _MenuElements.size();
 	_selector.setPosition(_MenuElements[_selector_pos].second.getPosition());
 	_selector.move(sf::Vector2f(-55, 5));
@@ -132,6 +135,11 @@ void            GameConfigScene::drawAll()
 	//plugins
 	drawP1Config();
 	drawP2Config();
+	sf::Sprite tmp = _currentMap->getIcon();
+	tmp.setPosition(170, 200);
+	_window->drawText("Map:", 20, 300, 470);
+	_window->drawText(_currentMap->getName(), 26, 360, 464);
+	_window->drawSprite(tmp);
 
 	_window->drawSprite(_selector);
 }
@@ -156,9 +164,6 @@ void            GameConfigScene::action()
 {
         if (_MenuElements[_selector_pos].first == _PLAY)
 	{
-		// _menuConfig->_P1 = (_PLAYERS)_P1_pos;
-		// _menuConfig->_P2 = (_PLAYERS)_P2_pos;
-
 		nextScene(_PLAY_GAME);
 	}
 	else if (_MenuElements[_selector_pos].first == _BACK)
@@ -190,7 +195,7 @@ void		GameConfigScene::moveSelector(_KEYS dir)
 		{
 			_selector_pos += 1;
 			_selector.setPosition(_MenuElements[_selector_pos].second.getPosition());
-                        if (_MenuElements[_selector_pos].first == _PLAY || _MenuElements[_selector_pos].first == _BACK)
+                        if (_MenuElements[_selector_pos].first == _PLAY || _MenuElements[_selector_pos].first == _BACK || _MenuElements[_selector_pos].first == _MAP)
 			        _selector.move(sf::Vector2f(-75, 4));
                         else
 			        _selector.move(sf::Vector2f(-55, 5));
@@ -200,7 +205,7 @@ void		GameConfigScene::moveSelector(_KEYS dir)
 		{
 			_selector_pos -= 1;
 			_selector.setPosition(_MenuElements[_selector_pos].second.getPosition());
-                        if (_MenuElements[_selector_pos].first == _PLAY || _MenuElements[_selector_pos].first == _BACK)
+                        if (_MenuElements[_selector_pos].first == _PLAY || _MenuElements[_selector_pos].first == _BACK || _MenuElements[_selector_pos].first == _MAP)
 			        _selector.move(sf::Vector2f(-75, 4));
                         else
 			        _selector.move(sf::Vector2f(-55, 5));
@@ -289,39 +294,35 @@ void		GameConfigScene::changePlayer2W(_KEYS key) {
 }
 
 void		GameConfigScene::changeMap(_KEYS key) {
-	// if (key == _KEY_RIGHT) {
-	// 	if (_currentMappos + 1 >= _Maps.size()) {
-	// 		return;	
-	// 	}
-	// 	else {
-	// 		_currentMappos += 1;
-	// 		_currentMap = _Maps[_currentMappos];
-	// 	}
-	// } else {
-	// 	if (_currentP1pos - 1 < 0) {
-	// 		return;	
-	// 	}
-	// 	else {
-	// 		_currentMappos -= 1;
-	// 		_currentMap = _Maps[_currentMappos];
-	// 	}
-	// }
+	if (key == _KEY_RIGHT) {
+		if (_currentMappos + 1 >= _Maps.size()) {
+			return;	
+		}
+		else {
+			_currentMappos += 1;
+			_currentMap = _Maps[_currentMappos];
+		}
+	} else {
+		if (_currentMappos - 1 < 0) {
+			return;	
+		}
+		else {
+			_currentMappos -= 1;
+			_currentMap = _Maps[_currentMappos];
+		}
+	}
 }
 
 void		GameConfigScene::setPlayers(_PLAYERS players) {
 	for (auto p : players) {
 		_Players.push_back(p.second);
-		// std::cout << "p : " << p.second->getName() << std::endl;
 	}
 	_currentP1 = _Players[0];
 	_currentP1pos = 0;
 	_currentP2 = _Players[0];
 	_currentP2pos = 0;
-	// std::cout << "P1 : " << _currentP1->getName() << std::endl;
-	// std::cout << "P2 : " << _currentP2->getName() << std::endl;
 }
 void		GameConfigScene::setWeapons(_WEAPONS weapons) {
-	puts("lol");
 	for (auto w : weapons) {
 		_Weapons.push_back(w.second);
 	}

@@ -134,7 +134,7 @@ void		PluginManager::openMapsLibs()
 {
         for (auto path : _mapsLibs) {
 
-                std::cout << "opeinig map path :" << path << std::endl;
+                // std::cout << "opeinig map path :" << path << std::endl;
                 void *handleLib = dlopen(path.c_str(), RTLD_LAZY);
                 if (!handleLib)
                 {
@@ -144,7 +144,7 @@ void		PluginManager::openMapsLibs()
                 IMap    *tmp;
         	IMap    *(* create)() = (IMap *(*)())dlsym(handleLib, "getInstance");
         	tmp = create();
-                std::cout << "tmp map name :" << tmp->getName() << std::endl;
+                // std::cout << "tmp map name :" << tmp->getName() << std::endl;
                 _mapsHandleLibs.emplace(tmp->getName(), handleLib);
                 _Maps.emplace(tmp->getName(), tmp);
         }

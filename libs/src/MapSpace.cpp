@@ -1,9 +1,9 @@
 #include "../../include/IMap.hpp"
 
-class MapCave : public IMap {
+class MapSpace : public IMap {
         public:
-		MapCave();
-		~MapCave();
+		MapSpace();
+		~MapSpace();
 
                 void	                init(IDisplay *window);
                 void                    update();
@@ -29,9 +29,9 @@ class MapCave : public IMap {
                 // std::vector<sf::Sprite> _SpritesReturn;
 };
 
-MapCave::MapCave() {
-	_name = "Cave";
-        std::string	path = "./libs/maps/ressources/MapCaveIcon.png";
+MapSpace::MapSpace() {
+	_name = "Space";
+        std::string	path = "./libs/maps/ressources/MapSpaceIcon.png";
 	if (!_iconTexture.loadFromFile(path)) {
 		std::cout << "Error while loading texture :" << path << std::endl;
 		exit(84);
@@ -39,50 +39,50 @@ MapCave::MapCave() {
 	_icon.setTexture(_iconTexture);
 }
 
-MapCave::~MapCave(){
+MapSpace::~MapSpace(){
 	
 }
 
-sf::Sprite              MapCave::getIcon() {
+sf::Sprite              MapSpace::getIcon() {
         return _icon;
 }
 
 //EDIT ONLY THIS
-void                            MapCave::init(IDisplay *window) {
+void                            MapSpace::init(IDisplay *window) {
         _window = window;
-        createSprite("background1", "./libs/maps/ressources/cave1.png");
-	createSprite("background2", "./libs/maps/ressources/cave2.png");
-	createSprite("background3", "./libs/maps/ressources/cave3.png");
-	setBackgroundParallax("background1", 1.0);
-	setBackgroundParallax("background2", 1.3);
-	setBackgroundParallax("background3", 1.5);
+        createSprite("background1", "./libs/maps/ressources/space.png");
+	createSprite("background2", "./libs/maps/ressources/whiteStars.png");
+	createSprite("background3", "./libs/maps/ressources/deathStar.png");
+        setBackgroundParallax("background1", 0.8);
+	setBackgroundParallax("background2", 1.8);
+	setBackgroundParallax("background3", 1.4);
 }
 
-void                            MapCave::update() {
+void                            MapSpace::update() {
         moveBackgroundParallax();
 }
 
 
-sf::Sprite	MapCave::getSprite(const std::string &name)
+sf::Sprite	MapSpace::getSprite(const std::string &name)
 {
 	return (_Sprites.at(name));
 }
-sf::Sprite	&MapCave::getSpriteRef(const std::string &name)
+sf::Sprite	&MapSpace::getSpriteRef(const std::string &name)
 {
 	return (_Sprites.at(name));
 }
 
-const std::string               &MapCave::getName() const {
+const std::string               &MapSpace::getName() const {
         return _name;
 }
 
-void		MapCave::createSprite(const std::string &name, const std::string &path)
+void		MapSpace::createSprite(const std::string &name, const std::string &path)
 {
 	initTexture(path, name);
 	pushSprite(name);
 }
 
-void		MapCave::initTexture(const std::string &path, const std::string &name)
+void		MapSpace::initTexture(const std::string &path, const std::string &name)
 {
 	sf::Texture	texture;
 
@@ -94,7 +94,7 @@ void		MapCave::initTexture(const std::string &path, const std::string &name)
 	}
 }
 
-void		MapCave::pushSprite(const std::string &name)
+void		MapSpace::pushSprite(const std::string &name)
 {
 	sf::Sprite			sprite;
 
@@ -102,7 +102,7 @@ void		MapCave::pushSprite(const std::string &name)
 	_Sprites.insert(std::pair<std::string, sf::Sprite>(name, sprite));
 }
 
-void		MapCave::setBackgroundParallax(const std::string &spriteName, const float &speed)
+void		MapSpace::setBackgroundParallax(const std::string &spriteName, const float &speed)
 {
 	sf::Sprite sprite1 = getSprite(spriteName);
 	sf::Sprite sprite2 = getSprite(spriteName);
@@ -112,7 +112,7 @@ void		MapCave::setBackgroundParallax(const std::string &spriteName, const float 
 	_ParallaxSpeed.emplace(spriteName, speed * -1);
 }
 
-void		MapCave::moveBackgroundParallax()
+void		MapSpace::moveBackgroundParallax()
 {
 	for (auto &bg : _Parallax)
 	{
@@ -129,14 +129,14 @@ void		MapCave::moveBackgroundParallax()
 	}
 }
 
-void		MapCave::spriteSetPosition(const std::string &name, const float &x, const float &y)
+void		MapSpace::spriteSetPosition(const std::string &name, const float &x, const float &y)
 {
 	_Sprites.at(name).setPosition(sf::Vector2f(x, y));
 }
 
 extern "C"
-MapCave            *getInstance()
+MapSpace            *getInstance()
 {
-	MapCave *tmp = new MapCave();
+	MapSpace *tmp = new MapSpace();
         return tmp;
 }
