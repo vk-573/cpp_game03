@@ -3,7 +3,7 @@
 void		Display::createWindow()
 {
 	_open = true;
-	_Window.create(sf::VideoMode(_WW, _WH), "RTYPE");
+	_Window.create(sf::VideoMode(_WW, _WH), "Game");
 	_Window.setFramerateLimit(42);
 	createEvents();
 	if (!_font.loadFromFile("./ressources/fonts/lunchds.ttf"))

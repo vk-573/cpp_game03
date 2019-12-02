@@ -24,11 +24,11 @@ class GameConfigScene : public MainMenu {
 		bool		oneplayer = true;
 		bool		online = false;
 		MenuConfig	*_menuConfig;
-		std::string	currentP1;
-		std::string	currentP1W;
-		std::string	currentP2;
-		std::string	currentP2W;
-		std::string	currentMap;
+		IPlayer		*_currentP1;
+		IWeapon		*_currentP1W;
+		IPlayer		*_currentP2;
+		IWeapon		*_currentP2W;
+		IMap		*_currentMap;
 		int		_maxShips = 0;
 		int		_P1_pos = 0;
 		int		_P2_pos = 1;

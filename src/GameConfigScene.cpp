@@ -221,10 +221,11 @@ void		GameConfigScene::changeShip2(_KEYS key)
 
 void		GameConfigScene::setPlayers(_PLAYERS players) {
 	_Players = players;
+	// _currentP1 = _Players[0];
+	// std::cout << "curent P1:" << _currentP1->getName();
 }
 void		GameConfigScene::setWeapons(_WEAPONS weapons) {
 	_Weapons = weapons;
-
 }
 void		GameConfigScene::setMaps(_MAPS maps) {
 	_Maps = maps;
