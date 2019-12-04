@@ -170,8 +170,6 @@ void		Game::processPlayer2() {
 		tmp.sprite.setPosition(pos.x - _p2->getSprite().getTextureRect().width , pos.y + 30);
 		tmp.id = _b2;
 		_p2Bullets.emplace(_b2++, tmp);
-		std::cout << "width:" << tmp.sprite.getTextureRect().width << std::endl;
-		std::cout << "height:" << tmp.sprite.getTextureRect().height << std::endl;
 	}
 }
 
@@ -210,10 +208,27 @@ void		Game::drawBullets() {
 }
 
 bool		Game::gotP2Hit(const bullet &b) {
+	
 	return false;
 }
 
 bool		Game::gotP1Hit(const bullet &b) {
+	sf::Rect <int>shape = b.sprite.getTextureRect();
+	sf::Rect <int>p1shape = _p1->getSprite().getTextureRect();
+	// std::cout << "p1 shape:" << p1shape.width << std::endl;
+	// std::cout << "b pos x :" << b.sprite.getPosition().x << std::endl;
+	// std::cout << "p pos x :" << _p1->getPosition().x << std::endl;
+	if (b.sprite.getPosition().x - shape.width < _p1->getPosition().x + p1shape.width &&
+		b.sprite.getPosition().x > _p1->getPosition().x && 
+		b.sprite.getPosition().y + shape.height > _p1->getPosition().y &&
+		b.sprite.getPosition().y < _p1->getPosition().y + p1shape.height) {
+		// std::cout << "touching " << std::endl;
+		_p1->gotHit(b.damage);
+		if (_p1->isDead()) {
+			quit();
+		}
+		return true;
+	}
 	return false;
 }
 
