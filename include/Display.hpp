@@ -1,10 +1,3 @@
-/*
-** EPITECH PROJECT, 2018
-** VK
-** File description:
-** Display class declaration
-*/
-
 #ifndef DISPLAY_HPP_
 	#define DISPLAY_HPP_
 

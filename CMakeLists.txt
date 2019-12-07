@@ -1,6 +1,5 @@
 project(game)
 cmake_minimum_required(VERSION 3.0)
-#set(CMAKE CXX STANDART 14)
 add_definitions("-fPIC")
 
 include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)

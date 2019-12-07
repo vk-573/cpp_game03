@@ -1,10 +1,3 @@
-/*
-** EPITECH PROJECT, 2018
-** VK
-** File description:
-** Scene class implementation
-*/
-
 #include "Scene.hpp"
 
 //PROTECTED
@@ -71,26 +64,6 @@ void		Scene::moveBackgroundParallax(IDisplay *window)
 		window->drawSprite(bg.second.second);
 	}
 }
-
-// void		Scene::drawGUI(const PLAYERS &players, IDisplay *window)
-// {
-	// window->drawSprite(_Sprites.at("gui"));
-	// for (const auto &player : players)
-	// {
-	// 	if (player.first == _FIRST) {
-	// 		int	x = 40;
-	// 		window->drawText("Player 1", 24, x, 660);
-	// 		window->drawText(("HP:" + std::to_string(player.second->getHP())), 24, x + 140, 660);
-	// 		window->drawText("Score:" + std::to_string(player.second->getScore()), 24, x + 250, 660);
-	// 	}
-	// 	if (player.first == _SECOND) {
-	// 		int x = 800;
-	// 		window->drawText("Player 2", 24, (float)x, 660);
-	// 		window->drawText(("HP:" + std::to_string(player.second->getHP())), 24, x + 140, 660);
-	// 		window->drawText("Score:" + std::to_string(player.second->getScore()), 24, x + 250, 660);
-	// 	}
-	// }
-// }
 
 void		Scene::drawTime(IDisplay *window, const float &seconds)
 {

@@ -7,18 +7,6 @@ MenuConfig::MenuConfig()
 	setPlayers(_pluginManager->getPlayers());
 	setWeapons(_pluginManager->getWeapons());
 	setMaps(_pluginManager->getMaps());
-
-	// _P1_keys.emplace(_KEY_UP, sf::Keyboard::Up);
-	// _P1_keys.emplace(_KEY_DOWN, sf::Keyboard::Down);
-	// _P1_keys.emplace(_KEY_RIGHT, sf::Keyboard::Right);
-	// _P1_keys.emplace(_KEY_LEFT, sf::Keyboard::Left);
-	// _P1_keys.emplace(_KEY_SPACE, sf::Keyboard::Space);
-
-	// _P2_keys.emplace(_KEY_UP, sf::Keyboard::Z);
-	// _P2_keys.emplace(_KEY_RIGHT, sf::Keyboard::D);
-	// _P2_keys.emplace(_KEY_LEFT, sf::Keyboard::Q);
-	// _P2_keys.emplace(_KEY_DOWN, sf::Keyboard::S);
-	// _P2_keys.emplace(_KEY_SPACE, sf::Keyboard::LShift);
 }
 
 MenuConfig::~MenuConfig() {

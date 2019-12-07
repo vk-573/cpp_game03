@@ -1,10 +1,3 @@
-/*
-** EPITECH PROJECT, 2018
-** VK
-** File description:
-** Game class implementation
-*/
-
 #include "Game.hpp"
 
 Game::Game(IDisplay *window) : _window(window)
@@ -307,8 +300,6 @@ bool		Game::isRunning() const
 	return (_running);
 }
 
-////////PRIVATE
-
 void		Game::quit()
 {
 	_running = false;
@@ -333,24 +324,3 @@ void		Game::dispEnd()
 	// }
 }
 
-// void		Game::initWeapons()
-// {
-// 	createSprite("DefaultWeapon", "./ressources/game/defaultWeapon.png");
-// 	IWeapon		*defaultWeapon = new DefaultWeapon(getSprite("DefaultWeapon"), "Zebi");
-// 	_Weapons.push_back(std::make_pair(_W_DEFAULT, defaultWeapon));
-// }
-
-// void		Game::initPlayers() 
-// {
-// 	_Players.emplace(_FIRST, _menuConfig->getChoosenPlayers()[0].second);
-// 	_Players.at(_FIRST)->setWeapon(_Weapons[0].second);
-// 	_Players.at(_FIRST)->setPlayerKeys(_menuConfig->getFirstPlayerKeys());
-// 	_Players.at(_FIRST)->setID(_FIRST);
-// 	if (_menuConfig->nb_players == 2)
-// 	{
-// 		_Players.emplace(_SECOND, _menuConfig->getChoosenPlayers()[1].second);
-// 		_Players.at(_SECOND)->setWeapon(_Weapons[0].second);
-// 		_Players.at(_SECOND)->setPlayerKeys(_menuConfig->getSecondPlayerKeys());
-// 		_Players.at(_SECOND)->setID(_SECOND);
-// 	}
-// }

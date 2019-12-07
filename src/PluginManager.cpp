@@ -4,7 +4,7 @@ PluginManager::~PluginManager()
 {
 	closePlayersLibs();
         closeWeaponsLibs();
-        // closeMapsLibs();
+        closeMapsLibs();
 }
 
 void            PluginManager::loadPLugings() {
