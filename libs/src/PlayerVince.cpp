@@ -113,8 +113,10 @@ bullet			PlayerVince::fire() {
 
 void			PlayerVince::gotHit(const int &damage) {
 	_hp -= damage;
-	if (_hp <= 0)
+	if (_hp <= 0) {
+		_hp = 0;
 		_diying = true;
+	}
 }
 
 bool			PlayerVince::isDead() {

@@ -122,6 +122,9 @@ void		Game::processPlayer1() {
 	}
 	if (_Events.at(sf::Keyboard::Space)) {
 		bullet tmp = _p1->fire();
+		if (tmp.empty) {
+			return;
+		}
 		sf::Vector2f pos = _p1->getPosition();
 		tmp.sprite.setPosition(pos.x + _p1->getSprite().getTextureRect().width , pos.y + 30);
 		tmp.id = _b1;
@@ -165,6 +168,9 @@ void		Game::processPlayer2() {
 	}
 	if (_Events.at(sf::Keyboard::Return)) {
 		bullet tmp = _p2->fire();
+		if (tmp.empty) {
+			return;
+		}
 		sf::Vector2f pos = _p2->getPosition();
 		tmp.sprite.scale(-1, 1);
 		tmp.sprite.setPosition(pos.x - _p2->getSprite().getTextureRect().width , pos.y + 30);
@@ -177,6 +183,15 @@ void		Game::drawAll() {
 	drawMap();
 	drawPlayers();
 	drawBullets();
+	drawGUI();
+}
+
+void		Game::drawGUI() {
+	_window->drawText("Player 1 hp:", 24, 30, 680);
+	_window->drawText(std::to_string(_p1->getHP()), 24, 200, 680);
+
+	_window->drawText("Player 2 hp:", 24, 1030, 680);
+	_window->drawText(std::to_string(_p2->getHP()), 24, 1200, 680);
 }
 
 void		Game::drawPlayers() {
@@ -185,44 +200,95 @@ void		Game::drawPlayers() {
 }
 
 void		Game::drawBullets() {
+
 	for (auto &b : _p1Bullets) {
 		b.second.sprite.move(b.second.speed, 0);
 		_window->drawSprite(b.second.sprite);
 		if (b.second.sprite.getPosition().x > 1300) {
-			_p1Bullets.erase(b.second.id);
+			// _p1Bullets.erase(b.second.id);
+			b.second.empty = true;
+			// break;
 		}
-		if (gotP2Hit(b.second)) {
-			_p1Bullets.erase(b.second.id);
+		else if (gotP2Hit(b.second)) {
+			// _p1Bullets.erase(b.second.id);
+			b.second.empty = true;
+
+			// break;
+		}
+		else if (bulletsCollide(b.second)) {
+			// _p1Bullets.erase(b.second.id);
+			b.second.empty = true;
+
+			// break;
 		}
 	}
 	for (auto &b : _p2Bullets) {
 		b.second.sprite.move(-b.second.speed, 0);
 		_window->drawSprite(b.second.sprite);
 		if (b.second.sprite.getPosition().x < -200) {
-			_p2Bullets.erase(b.second.id);
+			// _p2Bullets.erase(b.second.id);
+			b.second.empty = true;
+
+			// break;
 		}
-		if (gotP1Hit(b.second)) {
+		else if (gotP1Hit(b.second)) {
+			// _p2Bullets.erase(b.second.id);
+			b.second.empty = true;
+
+			// break;
+		}
+	}
+	for (auto &b : _p1Bullets) {
+		if (b.second.empty) {
+			_p1Bullets.erase(b.second.id);
+		}
+	}
+	for (auto &b : _p2Bullets) {
+		if (b.second.empty) {
 			_p2Bullets.erase(b.second.id);
 		}
 	}
 }
 
+bool		Game::bulletsCollide(const bullet &b) {
+	sf::Rect <int>shape = b.sprite.getTextureRect();
+	for (auto &b2 : _p2Bullets) {
+		sf::Rect <int>shape2 = b2.second.sprite.getTextureRect();
+		if (b.sprite.getPosition().x + shape.width > b2.second.sprite.getPosition().x - shape2.width &&
+			b.sprite.getPosition().x < b2.second.sprite.getPosition().x && 
+			b.sprite.getPosition().y + shape.height > b2.second.sprite.getPosition().y &&
+			b.sprite.getPosition().y < b2.second.sprite.getPosition().y + shape2.height) {
+			// _p2Bullets.erase(b2.second.id);
+			b2.second.empty = true;
+			return true;
+		}
+	}
+	return false;
+}
+
 bool		Game::gotP2Hit(const bullet &b) {
-	
+	sf::Rect <int>shape = b.sprite.getTextureRect();
+	sf::Rect <int>p2shape = _p2->getSprite().getTextureRect();
+	if (b.sprite.getPosition().x + shape.width > _p2->getPosition().x - p2shape.width &&
+		b.sprite.getPosition().x < _p2->getPosition().x && 
+		b.sprite.getPosition().y + shape.height > _p2->getPosition().y &&
+		b.sprite.getPosition().y < _p2->getPosition().y + p2shape.height) {
+		_p2->gotHit(b.damage);
+		if (_p2->isDead()) {
+			quit();
+		}
+		return true;
+	}
 	return false;
 }
 
 bool		Game::gotP1Hit(const bullet &b) {
 	sf::Rect <int>shape = b.sprite.getTextureRect();
 	sf::Rect <int>p1shape = _p1->getSprite().getTextureRect();
-	// std::cout << "p1 shape:" << p1shape.width << std::endl;
-	// std::cout << "b pos x :" << b.sprite.getPosition().x << std::endl;
-	// std::cout << "p pos x :" << _p1->getPosition().x << std::endl;
 	if (b.sprite.getPosition().x - shape.width < _p1->getPosition().x + p1shape.width &&
 		b.sprite.getPosition().x > _p1->getPosition().x && 
 		b.sprite.getPosition().y + shape.height > _p1->getPosition().y &&
 		b.sprite.getPosition().y < _p1->getPosition().y + p1shape.height) {
-		// std::cout << "touching " << std::endl;
 		_p1->gotHit(b.damage);
 		if (_p1->isDead()) {
 			quit();
@@ -234,9 +300,6 @@ bool		Game::gotP1Hit(const bullet &b) {
 
 void		Game::drawMap() {
 	_map->update();
-	// for (sf::Sprite tmp : _map->getSprites()) {
-	// 	_window->drawSprite(tmp);
-	// }
 }
 
 bool		Game::isRunning() const 

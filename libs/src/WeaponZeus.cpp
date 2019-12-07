@@ -17,6 +17,7 @@ class WeaponZeus : public IWeapon {
 		const int	        &getDamage() const;
 
 	private:
+		void			pullTrigger();
 		std::string		_name;
 		sf::Sprite		_sprite;
 		sf::Texture		_texture;
@@ -25,6 +26,8 @@ class WeaponZeus : public IWeapon {
                 int                     _damage;
 		sf::Vector2f		_pos;
                 bullet                  _bullet;
+		bool			_reloading = false;
+		sf::Clock		_rateFireClock;
 };
 
 WeaponZeus::WeaponZeus() {
@@ -36,6 +39,7 @@ WeaponZeus::WeaponZeus() {
         _bullet.damage = _damage;
         _bullet.speed = _speed;
         _bullet.sprite = getSpritePlain();
+	_bullet.empty = false;
 }
 
 WeaponZeus::~WeaponZeus(){
@@ -70,7 +74,22 @@ void			WeaponZeus::setPosition(const int &x, const int &y) {
 	_sprite.setPosition(_pos);
 }
 
+void			WeaponZeus::pullTrigger() {
+	if (_rateFireClock.getElapsedTime().asSeconds() > _fireSpeed)
+	{
+		_reloading = true;
+		_bullet.empty = false;
+		_rateFireClock.restart();
+	}
+}
+
 bullet			WeaponZeus::fire() {
+	pullTrigger();
+	if (!_reloading) {
+		_bullet.empty = true;
+		return _bullet;
+	}
+	_reloading = false;
 	return _bullet;
 }
 

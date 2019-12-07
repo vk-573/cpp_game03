@@ -10,6 +10,7 @@ typedef struct		my_struct_bullet
 	float		speed;
 	sf::Sprite	sprite;
 	int		id;
+	bool		empty;
 }			bullet;
 
 class IWeapon {

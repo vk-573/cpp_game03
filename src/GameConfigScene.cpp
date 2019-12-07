@@ -89,6 +89,8 @@ void		GameConfigScene::drawP1Config() {
 	_window->drawText(std::to_string(_currentP1W->getDamage()), 26, 1160, 186);
 	_window->drawText("Speed:", 20, 1090, 220);
 	_window->drawText(std::to_string(_currentP1W->getSpeed()), 25, 1160, 220);
+	_window->drawText("Fire R:", 18, 1090, 250);
+	_window->drawText(std::to_string(_currentP1W->getFireSpeed()), 24, 1160, 250);
 	_window->drawSprite(tmpP1W);
 
 
@@ -113,6 +115,8 @@ void		GameConfigScene::drawP2Config() {
 	_window->drawText(std::to_string(_currentP2W->getDamage()), 26, 1160, 442);
 	_window->drawText("Speed:", 20, 1090, 476);
 	_window->drawText(std::to_string(_currentP2W->getSpeed()), 25, 1160, 472);
+	_window->drawText("Fire R:", 18, 1090, 506);
+	_window->drawText(std::to_string(_currentP2W->getFireSpeed()), 24, 1160, 502);
 	_window->drawSprite(tmpP2W);
 }
 

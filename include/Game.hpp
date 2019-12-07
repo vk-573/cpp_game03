@@ -27,6 +27,8 @@ class Game : public Scene {
 		void		drawMap();
 		bool		gotP1Hit(const bullet &b);
 		bool		gotP2Hit(const bullet &b);
+		bool		bulletsCollide(const bullet &b);
+		void		drawGUI();
 		IDisplay	*_window;
 		bool		_running = false;
 		KEY_EVENT	_Events;
