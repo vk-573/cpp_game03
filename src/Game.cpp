@@ -40,34 +40,10 @@ void		Game::startGame()
 		_Events = _window->checkEvents();
 		processEvents();
 		drawAll();
-		// checkFinished();
-		// if (_lost)
-		// 	displayLostScreen();
-		// else if (_win)
-		// 	displayWinScreen();
+		if (!_running) {
+			displayWinScreen();
+		}
     		_window->refresh();
-		// std::cout << "playing !" << std::endl;
-		// displayLoaderStage();
-		// _currentStage->initStage();
-		// _currentStage->setPlayers(_Players);
-		// _currentStage->setEnemies(_plugins->getEnemiesByStage(_currentStage->getStageID()));
-		// endState = _currentStage->startStage();
-		// if (endState == _ENDSTAGE_MAIN_MENU) {
-		// 	restartPlayersStats();
-		// 	break;
-		// }
-		// else if (endState == _ENDSTAGE_NEXT_STAGE) {
-		// 	restartPlayers();
-		// 	if (!nextStage())
-		// 	{
-		// 		dispEnd();
-		// 		quit();
-		// 	}
-		// }
-		// else if (endState == _ENDSTAGE_RESTART_ALL) {
-		// 	restartPlayersStats();
-		// 	_currentStage = _Stages.at(0).second;
-		// }
 	}
 }
 
@@ -305,22 +281,23 @@ void		Game::quit()
 	_running = false;
 }
 
-void		Game::dispEnd()
+void		Game::displayWinScreen()
 {
-	// int	select = 0;
-	// sf::sleep(sf::seconds(0.1));
-	// while (3)
-	// {
-		// _window->clear();
-		// _window->drawText("YOU HAVE WON THE GAME", 72, 200, 150);
-		// _window->drawText("Scores",55, 485, 280);
-		// // _window->drawText("Player 1 : " + std::to_string(_Players.at(_FIRST)->getScore()),55, 430, 400);
-		// if (_Players.size() == 2)
-		// 	_window->drawText("Player 2 : " + std::to_string(_Players.at(_SECOND)->getScore()),55, 430, 480);
-		// _window->drawText("Press *Space* to quit...", 38, 390, 570);
-		// _window->refresh();
-		// if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
-		// 	break;
-	// }
+	int	select = 0;
+	sf::sleep(sf::seconds(0.1));
+	while (3)
+	{
+		_window->clear();
+		if (_p1->getHP()) {
+			_window->drawText("PLAYER 1 HAVE WON THE GAME", 62, 200, 250);
+		}
+		else {
+			_window->drawText("PLAYER 2 HAVE WON THE GAME", 62, 200, 250);
+		}
+		_window->drawText("press SPACE to quit", 32, 450, 450);
+		_window->refresh();
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+			break;
+	}
 }
 

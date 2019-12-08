@@ -29,6 +29,7 @@ class Game : public Scene {
 		bool		gotP2Hit(const bullet &b);
 		bool		bulletsCollide(const bullet &b);
 		void		drawGUI();
+		void		displayWinScreen();
 		IDisplay	*_window;
 		bool		_running = false;
 		KEY_EVENT	_Events;

@@ -198,4 +198,5 @@ void		Display::resetEvents()
 	_Events.at(sf::Keyboard::D) = false;
 	_Events.at(sf::Keyboard::Q) = false;
 	_Events.at(sf::Keyboard::S) = false;
+	_Events.at(sf::Keyboard::Z) = false;
 }
