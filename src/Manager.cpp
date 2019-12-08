@@ -17,7 +17,6 @@ void            Manager::initManager()
 {
 	_menuConfig = new MenuConfig();
 	initScenes();
-	_menuConfig->getPluginManager()->getPlayerInstance("Jojo");
 }
 
 void		Manager::startManager()
