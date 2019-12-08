@@ -33,3 +33,6 @@ The class diagram was kind of tricky to think of aswell as the game engine itsel
 The major challenge was to find the list of the interfaces member functions, because we can call only thoses function in our
 program. In order to correctly run our game by calling only those functions from the plugins instances.
 But we managed to find solutions to our little bugs.
+
+SCREENSHOTS:
+/screenshots/
