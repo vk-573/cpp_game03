@@ -4,15 +4,21 @@ final project for cau cpp module
 
 #compilation
 How to compile :
-./comppile.sh
+./comppileWithConan.sh
 will launche a series of scripst which will execute conan, cmake and make.
+
+IF YOU DONT HAVE CONAN -------
+replace the actual cmake with the one who is at cmake02/withoutConan path
+and compile with the ./compile.sh script
+ - --- -  - - - - -- - -- - - - - - -- -- -
 
 how to launch: 
 ./game
 after compilation
 
 You must have sfml 2.5 dependecie in order to execute this project.
-If conan install doesnt work for you, please install the sfml lib manually on your machine and then recompile this project  with ./compile
+If conan install doesnt work for you, please install the sfml lib manually on your machine and then recompile this project  with ./compile and the cmake which is at cmake02/withoutConan
+command to install sfml: sudo apt-get install libsfml-dev
 
 You must also add the players, weapons and maps plugin into their respectives folders at the libs/ path
 libs/players/player.so
