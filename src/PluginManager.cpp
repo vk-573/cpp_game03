@@ -19,16 +19,28 @@ void            PluginManager::loadPLugings() {
 // PRIVATE
 void            PluginManager::loadPlayers() {
         getPaths(_playersPath, _player_type);
+        if (!_playersLibs.size()) {
+                std::cout << "error while loading players modules" << std::endl;
+                exit(84);
+        }
         openPlayersLibs();
 }
 
 void            PluginManager::loadWeapons() {
         getPaths(_weaponsPath, _weapon_type);
+        if (!_weaponsLibs.size()) {
+                std::cout << "error while loading weapons modules" << std::endl;
+                exit(84);
+        }
         openWeaponsLibs();
 }
 
 void            PluginManager::loadMaps() {
         getPaths(_mapsPath, _map_type);
+        if (!_mapsLibs.size()) {
+                std::cout << "error while loading maps modules" << std::endl;
+                exit(84);
+        }
         openMapsLibs();
 }
 

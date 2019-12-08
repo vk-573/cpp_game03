@@ -32,8 +32,8 @@ class WeaponBazooka : public IWeapon {
 
 WeaponBazooka::WeaponBazooka() {
 	_name = "Bazooka";
-	_speed = 1;
-        _fireSpeed = 0.5;
+	_speed = 1.25;
+        _fireSpeed = 3;
         _damage = 50;
 	initTextures();
         _bullet.damage = _damage;

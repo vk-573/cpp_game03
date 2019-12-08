@@ -40,7 +40,7 @@ void		Game::startGame()
 		_Events = _window->checkEvents();
 		processEvents();
 		drawAll();
-		if (!_running) {
+		if (_end) {
 			displayWinScreen();
 		}
     		_window->refresh();
@@ -171,50 +171,56 @@ void		Game::drawPlayers() {
 void		Game::drawBullets() {
 
 	for (auto &b : _p1Bullets) {
-		b.second.sprite.move(b.second.speed, 0);
-		_window->drawSprite(b.second.sprite);
-		if (b.second.sprite.getPosition().x > 1300) {
-			// _p1Bullets.erase(b.second.id);
-			b.second.empty = true;
-			// break;
-		}
-		else if (gotP2Hit(b.second)) {
-			// _p1Bullets.erase(b.second.id);
-			b.second.empty = true;
+		if (!b.second.empty) {
+			b.second.sprite.move(b.second.speed, 0);
+			_window->drawSprite(b.second.sprite);
+			if (b.second.sprite.getPosition().x > 1300) {
+				// _p1Bullets.erase(b.second.id);
+				b.second.empty = true;
+				// break;
+			}
+			else if (gotP2Hit(b.second)) {
+				// _p1Bullets.erase(b.second.id);
+				b.second.empty = true;
 
-			// break;
-		}
-		else if (bulletsCollide(b.second)) {
-			// _p1Bullets.erase(b.second.id);
-			b.second.empty = true;
+				// break;
+			}
+			else if (bulletsCollide(b.second)) {
+				// _p1Bullets.erase(b.second.id);
+				b.second.empty = true;
 
-			// break;
+				// break;
+			}
 		}
 	}
 	for (auto &b : _p2Bullets) {
 		b.second.sprite.move(-b.second.speed, 0);
-		_window->drawSprite(b.second.sprite);
-		if (b.second.sprite.getPosition().x < -200) {
-			// _p2Bullets.erase(b.second.id);
-			b.second.empty = true;
+		if (!b.second.empty) {
+			_window->drawSprite(b.second.sprite);
+			if (b.second.sprite.getPosition().x < -200) {
+				// _p2Bullets.erase(b.second.id);
+				b.second.empty = true;
 
-			// break;
-		}
-		else if (gotP1Hit(b.second)) {
-			// _p2Bullets.erase(b.second.id);
-			b.second.empty = true;
+				// break;
+			}
+			else if (gotP1Hit(b.second)) {
+				// _p2Bullets.erase(b.second.id);
+				b.second.empty = true;
 
-			// break;
+				// break;
+			}
 		}
 	}
 	for (auto &b : _p1Bullets) {
 		if (b.second.empty) {
 			_p1Bullets.erase(b.second.id);
+			break;
 		}
 	}
 	for (auto &b : _p2Bullets) {
 		if (b.second.empty) {
 			_p2Bullets.erase(b.second.id);
+			break;
 		}
 	}
 }
@@ -244,7 +250,7 @@ bool		Game::gotP2Hit(const bullet &b) {
 		b.sprite.getPosition().y < _p2->getPosition().y + p2shape.height) {
 		_p2->gotHit(b.damage);
 		if (_p2->isDead()) {
-			quit();
+			_end = true;
 		}
 		return true;
 	}
@@ -260,7 +266,7 @@ bool		Game::gotP1Hit(const bullet &b) {
 		b.sprite.getPosition().y < _p1->getPosition().y + p1shape.height) {
 		_p1->gotHit(b.damage);
 		if (_p1->isDead()) {
-			quit();
+			_end = true;
 		}
 		return true;
 	}
@@ -299,5 +305,6 @@ void		Game::displayWinScreen()
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
 			break;
 	}
+	quit();
 }
 

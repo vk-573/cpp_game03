@@ -32,12 +32,14 @@ class Game : public Scene {
 		void		displayWinScreen();
 		IDisplay	*_window;
 		bool		_running = false;
+		bool		_end = false;
 		KEY_EVENT	_Events;
 		MenuConfig	*_menuConfig;
 		IPlayer		*_p1;
 		IPlayer		*_p2;
 		IMap		*_map;
 		std::map<int, bullet>	_p1Bullets;
+		// std::vector<bullet>	_p1Bullets;
 		std::map<int, bullet>	_p2Bullets;
 		int		_b1 = 0;
 		int		_b2 = 0;

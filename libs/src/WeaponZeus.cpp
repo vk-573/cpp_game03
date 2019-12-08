@@ -32,9 +32,9 @@ class WeaponZeus : public IWeapon {
 
 WeaponZeus::WeaponZeus() {
 	_name = "Zeus";
-	_speed = 3.0;
-        _fireSpeed = 0.35;
-        _damage = 35;
+	_speed = 2.0;
+        _fireSpeed = 0.8;
+        _damage = 25;
 	initTextures();
         _bullet.damage = _damage;
         _bullet.speed = _speed;
