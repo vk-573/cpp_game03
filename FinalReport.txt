@@ -1,0 +1,35 @@
+PROJECT : Modulable Game
+
+TEAM MEMBERS:
+Valentin KIRYK
+Vincent CHOQUET
+Seray AYAKTA
+
+A 2D shooter game developepd with the SFML library, the game players, weapons and maps are fully modulable.
+
+COMPILE / EXECUTION:
+the project was developped on ubuntu.
+copy the binary from /bin/ to the root and execute it.
+You must have the SFML Library or compile it with conan. (refer to the README).
+You must have the players, maps and weapon plugins in the libs/<pluginType>/ path
+example: 
+libs/weapons/weapon.so
+
+in the case of a problem, please refers to the README which contain all the compiliation and execution's information.
+
+FUNCTIONALITY:
+Our game have a menu, a plugin manager which is the menu screen who allow us to chose our players, weapons and the map.
+After the game configuration you can start a game with the selected options.
+
+OOP CONCEPTS:
+For each plugin there is an interface class. IPlayer, IWeapon, IMap.
+And each plugin is a child of these interfaces.
+For example for the WeaponZeus, the pluginManager will create a instance (deep copy) of the libWeaponZeus.so which will be a child of IWeapon.
+And we can store this instance in a IWeapon *pointer and we can call only the interface functions;
+With the Interfaces classses abstraction concept we can change the game content without changing a line of code.
+
+IMPLEMENTATION:
+The class diagram was kind of tricky to think of aswell as the game engine itself.
+The major challenge was to find the list of the interfaces member functions, because we can call only thoses function in our
+program. In order to correctly run our game by calling only those functions from the plugins instances.
+But we managed to find solutions to our little bugs.

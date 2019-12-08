@@ -1,6 +1,10 @@
 # cpp_game03
 final project for cau cpp module
+Made on LINUX UBUNTU.
 
+#binary:
+./bin/game
+--- you must copy the binary to the root.
 
 #compilation
 How to compile :
