@@ -36,3 +36,6 @@ But we managed to find solutions to our little bugs.
 
 SCREENSHOTS:
 /screenshots/
+
+github repository:
+https://github.com/vk-573/cpp_game03
