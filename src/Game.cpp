@@ -16,12 +16,6 @@ void		Game::initGame(MenuConfig *menuConfig)
 	_p2 = _menuConfig->getCurrentP2();
 	_map = _menuConfig->getCurrentMap();
 
-	std::cout << "p1 name: " << _p1->getName() << std::endl;
-	std::cout << "p1 weap: " << _p1->getWeapon()->getName() << std::endl;
-	std::cout << "p2 name: " << _p2->getName() << std::endl;
-	std::cout << "p2 weap: " << _p2->getWeapon()->getName() << std::endl;
-	std::cout << "current Map:: " << _map->getName() << std::endl;	
-
 	_map->init(_window);
 	_p1->setPosition(100, 320);
 	_p2->setPosition(900, 320);
@@ -31,11 +25,8 @@ void		Game::initGame(MenuConfig *menuConfig)
 void		Game::startGame()
 {
 	_running = true;
-	// _STAGE_END_STATE endState;
 	while (_window->isOpen() && isRunning())
 	{
-
-		// _seconds = _timer.getElapsedTime().asSeconds() - _pauseSecs;
 		_window->clear();
 		_Events = _window->checkEvents();
 		processEvents();
@@ -175,21 +166,13 @@ void		Game::drawBullets() {
 			b.second.sprite.move(b.second.speed, 0);
 			_window->drawSprite(b.second.sprite);
 			if (b.second.sprite.getPosition().x > 1300) {
-				// _p1Bullets.erase(b.second.id);
 				b.second.empty = true;
-				// break;
 			}
 			else if (gotP2Hit(b.second)) {
-				// _p1Bullets.erase(b.second.id);
 				b.second.empty = true;
-
-				// break;
 			}
 			else if (bulletsCollide(b.second)) {
-				// _p1Bullets.erase(b.second.id);
 				b.second.empty = true;
-
-				// break;
 			}
 		}
 	}
@@ -198,16 +181,10 @@ void		Game::drawBullets() {
 		if (!b.second.empty) {
 			_window->drawSprite(b.second.sprite);
 			if (b.second.sprite.getPosition().x < -200) {
-				// _p2Bullets.erase(b.second.id);
 				b.second.empty = true;
-
-				// break;
 			}
 			else if (gotP1Hit(b.second)) {
-				// _p2Bullets.erase(b.second.id);
 				b.second.empty = true;
-
-				// break;
 			}
 		}
 	}
@@ -233,7 +210,6 @@ bool		Game::bulletsCollide(const bullet &b) {
 			b.sprite.getPosition().x < b2.second.sprite.getPosition().x && 
 			b.sprite.getPosition().y + shape.height > b2.second.sprite.getPosition().y &&
 			b.sprite.getPosition().y < b2.second.sprite.getPosition().y + shape2.height) {
-			// _p2Bullets.erase(b2.second.id);
 			b2.second.empty = true;
 			return true;
 		}

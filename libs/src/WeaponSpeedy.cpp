@@ -32,8 +32,8 @@ class WeaponSpeedy : public IWeapon {
 
 WeaponSpeedy::WeaponSpeedy() {
 	_name = "Speedy";
-	_speed = 4;
-        _fireSpeed = 1.5;
+	_speed = 8;
+        _fireSpeed = 0.8;
         _damage = 15;
 	initTextures();
         _bullet.damage = _damage;

@@ -22,10 +22,7 @@ class Manager : public Scene {
 		void		setCurrentScene(_MENU_SCENE);
 		void		startGame();
 		IDisplay				*_window;
-		// PLAYERS					_Players;
-		// int					_nb_players;
 		MENU_SCENES				_Scenes;
-		// WEAPONS					_Weapons;
 		IMenuScene				*_currentScene;
 		bool					_running;
 		Game					*_game;

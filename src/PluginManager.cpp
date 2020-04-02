@@ -23,6 +23,7 @@ void            PluginManager::loadPlayers() {
                 std::cout << "error while loading players modules" << std::endl;
                 exit(84);
         }
+        std::cout << "playrs size:" << _playersLibs.size() << std::endl;
         openPlayersLibs();
 }
 
