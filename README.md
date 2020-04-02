@@ -1,6 +1,6 @@
-# cpp_game03
+# cpp modulable 2d game
 
-final project for cau cpp module
+final cpp project for the Chung Ang univerity's cpp module
 Made on LINUX UBUNTU.
 
 ----------------------
@@ -15,7 +15,6 @@ you must copy the binary to the root.
 How to compile :
 ./comppileWithConan.sh
 will launche a series of scripst which will execute conan, cmake and make.
-
 
 ---------------------
 IF YOU DONT HAVE CONAN
